@@ -1,0 +1,68 @@
+data:
+    article1:
+        id: 1
+        title: 'Tip Aligning Digital Marketing with Business Goals and Objectives'
+        content: '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus in nibh id lacus maximus feugiat eu a purus. Vivamus nunc odio, imperdiet non varius vel, imperdiet in justo. Sed sed erat eu eros placerat molestie non id purus. Pellentesque non mollis nibh, at lobortis massa. Integer sed dolor a dui auctor volutpat. Nulla non facilisis sapien. In fermentum justo ut luctus rhoncus. Cras sagittis tellus egestas arcu facilisis tempor. </p>'
+        featuredimage: '3.jpg'
+        special: false
+        spotlight: true
+        datecreation: 2017-02-26 09:37:18
+        category:
+            id: 2
+            title: 'Business'
+        author:
+            id: 1
+            firstname: 'Hugo'
+            lastname: 'LIEGEARD'
+            email: 'wf3@hl-media.fr'
+
+    article2:
+        id: 2
+        title: '7 essential lessons from agency marketing to startup growth'
+        content: "<p>When Microsoft took to the stage at this year's E3 it announced not one but two new consoles: the Xbox One S, which went on sale earlier this year, and Project Scorpio,which will enable gaming at native resolutions up to 4K when it hits store shelves in 2017. </p>"
+        featuredimage: '16.jpg'
+        special: false
+        spotlight: true
+        datecreation: 2016-09-24 09:37:18
+        category:
+            id: 3
+            title: 'Mobile'
+        author:
+            id: 1
+            firstname: 'Hugo'
+            lastname: 'LIEGEARD'
+            email: 'wf3@hl-media.fr'
+
+    article3:
+        id: 3
+        title: 'Six big ways MacOS Sierra is going to change your Apple experience'
+        content: '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus in nibh id lacus maximus feugiat eu a purus. Vivamus nunc odio, imperdiet non varius vel, imperdiet in justo. Sed sed erat eu eros placerat molestie non id purus. Pellentesque non mollis nibh, at lobortis massa. Integer sed dolor a dui auctor volutpat. Nulla non facilisis sapien. In fermentum justo ut luctus rhoncus. Cras sagittis tellus egestas arcu facilisis tempor. </p>'
+        featuredimage: '4.jpg'
+        special: true
+        spotlight: false
+        datecreation: 2016-09-21 09:37:18
+        category:
+            id: 1
+            title: 'Computing'
+        author:
+            id: 2
+            firstname: 'Marion'
+            lastname: 'Craig'
+            email: 'wf3@hl-media.fr'
+
+    article4:
+        id: 4
+        title: 'Will Anker be the company to finally put a heads-up display in my car?'
+        content: '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus in nibh id lacus maximus feugiat eu a purus. Vivamus nunc odio, imperdiet non varius vel, imperdiet in justo. Sed sed erat eu eros placerat molestie non id purus. Pellentesque non mollis nibh, at lobortis massa. Integer sed dolor a dui auctor volutpat. Nulla non facilisis sapien. In fermentum justo ut luctus rhoncus. Cras sagittis tellus egestas arcu facilisis tempor. </p>'
+        featuredimage: '5.jpg'
+        special: true
+        spotlight: false
+        datecreation: 2016-09-26 09:37:18
+        category:
+            id: 4
+            title: 'Tech'
+        author:
+            id: 2
+            firstname: 'Marion'
+            lastname: 'Craig'
+            email: 'wf3@hl-media.fr'

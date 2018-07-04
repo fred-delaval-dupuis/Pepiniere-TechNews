@@ -1,0 +1,53 @@
+{% extends "layout.html.twig" %}
+
+{% set active = category.slug %}
+
+{% block page_title %}
+    {{ category.title|title }}
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <!--colleft-->
+        <div class="col-md-8 col-sm-12">
+            <div class="box-caption">
+                {#<span>{{ category.title|title }}</span>#}
+                {#<span>{{ category.articles[0].category.title }}</span>#}
+                <span>{{ app.request.get('category').title }}</span>
+            </div>
+            <!--list-news-cate-->
+            <div class="list-news-cate">
+                {% if category.articles is not empty %}
+                    {% for article in pagination %}
+                        {% include 'components/_article.html.twig' %}
+                    {% endfor %}
+                {% else %}
+                    <div class="alert alert-danger"><strong>Aucune publication pour le moment</strong></div>
+                {% endif %}
+            </div>
+            {% if nbPages > 0 %}
+                <div class="paging">
+                    <a href="
+                        {% if page <= 1 %}
+                            {{ url('index_category', {'category': category.slug, 'page': 1}) }}
+                        {% else %}
+                            {{ url('index_category', {'category': category.slug, 'page': page - 1}) }}
+                        {% endif %}
+                    ">Prev</a>
+                    {% for p in range(1, nbPages) %}
+                        <a href="{{ url('index_category', {'category': category.slug, 'page': p}) }}" {% if page == p %}class="current"{% endif %}>{{ p }}</a>
+                    {% endfor %}
+                    <a href="
+                        {% if page >= nbPages %}
+                            {{ url('index_category', {'category': category.slug, 'page': nbPages}) }}
+                        {% else %}
+                            {{ url('index_category', {'category': category.slug, 'page': page + 1}) }}
+                        {% endif %}
+                    ">Next</a>
+                </div>
+            {% endif %}
+
+        </div>
+        {{ render(controller('App\\Controller\\TechNews\\IndexController::sidebar')) }}
+    </div>
+{% endblock %}

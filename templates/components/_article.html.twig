@@ -1,0 +1,20 @@
+<article class="news-cate-item">
+    <div class="row">
+        <div class="col-md-5 col-sm-5 col-xs-12">
+            <a href="{{ url('index_article', {'category': article.category.slug, 'slug': article.slug, 'id': article.id}) }}">
+                <img alt="{{ article.title }}" src="{{ asset('images/product/' ~ article.featuredimage) }}">
+            </a>
+        </div>
+        <div class="col-md-7 col-sm-7 col-xs-12">
+            <h3><a href="{{ url('index_article', {'category': category.slug, 'slug': article.slug, 'id': article.id} ) }}">{{ article.title }}</a></h3>
+            <div class="meta-post">
+                <a href="javascript:void(0)">
+                    {{ article.author.firstname ~ ' ' ~ article.author.lastname }}
+                </a>
+                <em></em>
+                <span>{{ article.createdAt|date('d M Y') }}</span>
+            </div>
+            {{ article.content|summary }}
+        </div>
+    </div>
+</article>

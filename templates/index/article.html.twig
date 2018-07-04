@@ -1,0 +1,88 @@
+{% extends "layout.html.twig" %}
+
+{%  set active = article.category.slug %}
+
+{% block page_title %}
+    {{ article.title|title }}
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <!--colleft-->
+        <div class="col-md-8 col-sm-12">
+            <!--post-detail-->
+            <article class="post-detail">
+                <h1>{{ article.title|title }}</h1>
+                <div class="meta-post">
+                    <a href="javascript:void(0)">
+                        {{ article.author.firstname ~ ' ' ~ article.author.lastname }}
+                    </a>
+                    <em></em>
+                    <span>{{ article.createdAt|date("d M Y") }}</span>
+                </div>
+
+                <div class="post-detail-img">
+                    <img alt="" src="{{ asset('images/product/' ~ article.featuredimage) }}" />
+                </div>
+
+                {{ article.content|raw }}
+
+                <h5 class="text-right font-heading"><strong>{{ article.author.firstname ~ ' ' ~ article.author.lastname }}</strong> </h5>
+
+            </article>
+            <!--social-detail-->
+            <div class="social-detail">
+                <span>Suivez-nous</span>
+
+                <ul class="list-social-icon">
+                    <li>
+                        <a href="#" class="facebook">
+                            <i class="fa fa-facebook"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="twitter">
+                            <i class="fa fa-twitter"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="google">
+                            <i class="fa fa-google"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="youtube">
+                            <i class="fa fa-youtube-play"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="pinterest">
+                            <i class="fa fa-pinterest-p"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="rss">
+                            <i class="fa fa-rss"></i>
+                        </a>
+                    </li>
+
+                </ul>
+            </div>
+
+            <!--related post-->
+            <div class="detail-caption">
+                <span>Suggestions</span>
+            </div>
+            <section class="spotlight-thumbs spotlight-thumbs-related">
+                <div class="row">
+
+                    {% for article in suggestions %}
+                        {% include 'components/_thumbs.html.twig' %}
+                    {% endfor %}
+
+                </div>
+            </section>
+        </div>
+        {{ render(controller('App\\Controller\\TechNews\\IndexController::sidebar', { 'article': article })) }}
+    </div>
+{% endblock %}

@@ -1,0 +1,18 @@
+<div class="col-md-4 col-sm-4 col-xs-12">
+    <div class="spotlight-item-thumb">
+        <div class="spotlight-item-thumb-img">
+            <a href="{{ url('index_article', {'category': article.category.title, 'slug': article.slug, 'id': article.id}) }}">
+                <img alt="{{ article.title|title }}" src="{{ asset('images/product/' ~ article.featuredimage) }}" />
+            </a>
+            <a href="{{ url('index_category', {'category': article.category.slug}) }}" class="cate-tag">{{ article.category.title|title }}</a>
+        </div>
+        <h3><a href="{{ url('index_article', {'category': article.category.slug, 'slug': article.slug, 'id': article.id}) }}">{{ article.title|title }}</a></h3>
+        <div class="meta-post">
+            <a href="javascript:void(0)">
+                {{ article.author.firstname ~ ' ' ~ article.author.lastname }}
+            </a>
+            <em></em>
+            <span>{{ article.createdAt|date('d M Y') }}</span>
+        </div>
+    </div>
+</div>

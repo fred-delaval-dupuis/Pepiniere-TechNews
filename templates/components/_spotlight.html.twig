@@ -1,0 +1,24 @@
+<div>
+    <article class="spotlight-item">
+        <div class="spotlight-img">
+            <img alt="{{ article.title }}" src="{{ asset('images/product/') ~ article.featuredimage }}" class="img-responsive" />
+            <a href="{{ url('index_category', {'category': article.category.slug}) }}" class="cate-tag">{{ article.category.title }}</a>
+        </div>
+        <div class="spotlight-item-caption">
+            <h2 class="font-heading">
+                <a href="{{ url('index_article', {'category': article.category.slug, 'slug': article.slug, 'id': article.id}) }}">
+                    {{ article.title|title }}
+                </a>
+            </h2>
+            <div class="meta-post">
+                <a href="{{ url('index_category', {'category': article.category.slug}) }}">
+                    {{ article.author.firstname ~ ' ' ~ article.author.lastname }}
+                </a>
+                <em></em>
+                <span>{{ article.createdAt|date('d M Y') }}</span>
+            </div>
+            {# accroche #}
+            {{ article.content|summary }}
+        </div>
+    </article>
+</div>

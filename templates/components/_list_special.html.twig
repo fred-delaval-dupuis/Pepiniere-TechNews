@@ -1,0 +1,13 @@
+<article class="news-two-large">
+    <a href="{{ url('index_article', {'category': article.category.slug, 'slug': article.slug, 'id': article.id}) }}">
+        <img alt="{{ article.title|title }}" src="{{ asset('images/product/' ~ article.featuredImage) }}">
+    </a>
+    <h3><a href="{{ url('index_article', {'category': article.category.slug, 'slug': article.slug, 'id': article.id}) }}">{{ article.title|title }}">Six big ways MacOS Sierra is going to change your Apple experience</a></h3>
+    <div class="meta-post">
+        <a href="javascript:void(0)">
+            {{ article.author.firstName ~ ' ' ~ article.author.lastName }}
+        </a>
+        <em></em>
+        <span>{{ article.createdAt|date('d M Y') }}</span>
+    </div>
+</article>
