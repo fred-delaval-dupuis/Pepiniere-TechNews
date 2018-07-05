@@ -90,7 +90,7 @@ class Article
         $this->featuredImage = $featuredImage;
         $this->special = $special;
         $this->spotlight = $spotlight;
-        $this->createdAt = new \DateTime();
+        $this->createdAt = $createdAt ?: new \DateTime();
         $this->category = $category;
         $this->author = $author;
         $this->slug = $slug;

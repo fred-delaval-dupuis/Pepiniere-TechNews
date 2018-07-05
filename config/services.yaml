@@ -38,7 +38,27 @@ services:
     App\Form\ArticleType:
         arguments: [ '%articles_assets_dir%' ]
 
-    App\Article\ArticlesRepository:
-        arguments: [['@App\Provider\DoctrineProvider', '@App\Provider\YamlProvider']]
+    App\Provider\YamlProvider:
+#        tags:
+#            - app.article_provider
         calls:
+            - method: setStrategy
+              arguments: ['@App\Strategy\ArrayToArticleStrategy']
+
+#    App\Provider\DoctrineProvider:
+#        tags:
+#            - app.article_provider
+
+    _instanceof:
+        App\Provider\AbstractProvider:
+            tags:
+                - app.article_provider
+
+    App\Article\ArticlesRepository:
+#        arguments: [['@App\Provider\DoctrineProvider', '@App\Provider\YamlProvider']]
+        calls:
+            - ['setProviders', [!tagged app.article_provider]]
             - method: setupProviders
+
+      # circular reference : App\Article\ArticlesRepositoryInterface => App\Provider\DoctrineProvider => App\Article\ArticlesRepositoryInterface => ...
+#    App\Article\ArticlesRepositoryInterface: '@App\Article\ArticlesRepository'

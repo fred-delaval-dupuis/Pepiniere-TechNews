@@ -29,9 +29,9 @@ class IndexController extends Controller
     {
 //        $repository = $this->getDoctrine()->getRepository(Article::class);
 
-        dump($repository);
+//        dump($repository);
 
-        dump($repository->findAll());
+//        dump($repository->findAll());
 
         return $this->render('index/index.html.twig', [
 //            'articles'  => $repository->findAll(),
@@ -86,15 +86,19 @@ class IndexController extends Controller
      *          "id"="\d+"
      *     }
      * )
-     * @ParamConverter("post", class="SensioBlogBundle:Post")
-     * @param Article $article
+     * @param int $id
+     * @param string $slug
+     * @param ArticlesRepository $repository
      * @return Response
      */
-    public function article(Article $article = null)
+    public function article(int $id, string $slug, ArticlesRepository $repository)
     {
+//        $article = $repository->find($id);
+        $article = $repository->findOneBy(['id' => $id, 'slug' => $slug]);
+
         if (null === $article) {
-            //$this->redirectToRoute('home', [], Response::HTTP_MOVED_PERMANENTLY);
-            $this->redirectToRoute('home');
+            //return $this->redirectToRoute('home', [], Response::HTTP_MOVED_PERMANENTLY);
+//            return $this->redirectToRoute('home');
         }
 
         $suggestions = $this->getDoctrine()->getRepository(Article::class)->findArticlesSuggestions($article->getId(), $article->getCategory()->getId());

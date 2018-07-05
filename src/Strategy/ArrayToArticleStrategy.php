@@ -14,11 +14,11 @@ use App\Entity\Article;
 use App\Entity\Category;
 use App\Entity\User;
 
-class YamlStrategy implements StrategyInterface
+class ArrayToArticleStrategy implements StrategyInterface
 {
     use HelperTrait;
 
-    public function createArticle($args): Article
+    public function createArticle($args): ?Article
     {
         try {
             $article = new Article(
@@ -27,7 +27,7 @@ class YamlStrategy implements StrategyInterface
                 $args['featuredimage'],
                 $args['special'],
                 $args['spotlight'],
-                $args['datecreation'],
+                (new \DateTime)->setTimestamp($args['datecreation']),
                 new Category($args['category']['id'], $args['category']['title'], $this->slugify($args['category']['title'])),
                 new User($args['author']['id'], $args['author']['firstname'], $args['author']['lastname'],$args['author']['email']),
                 $this->slugify($args['title'])
@@ -35,8 +35,24 @@ class YamlStrategy implements StrategyInterface
             $article->setId($args['id']);
             return $article;
         } catch(\Exception $e) {
+            dump($e);
             return null;
         }
     }
+
+    public function createArticles($articles): iterable
+    {
+        $result = [];
+        try {
+            foreach ($articles as $article) {
+                $result[] = $this->createArticle($article);
+            }
+            return $result;
+        } catch(\Exception $e) {
+            return [];
+        }
+
+    }
+
 
 }

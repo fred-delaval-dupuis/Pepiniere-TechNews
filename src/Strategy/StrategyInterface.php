@@ -12,5 +12,6 @@ use App\Entity\Article;
 
 Interface StrategyInterface
 {
-    public function createArticle($args): Article;
+    public function createArticle($args): ?Article;
+    public function createArticles($articles): iterable;
 }

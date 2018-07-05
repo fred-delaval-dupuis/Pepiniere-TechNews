@@ -8,12 +8,31 @@
 
 namespace App\Provider;
 
+use App\Article\ArticlesRepositoryInterface;
+use App\Article\Factory\AbstractFactoryInterface;
 use App\Entity\Article;
+use App\Strategy\StrategyInterface;
 use Symfony\Component\Yaml\Exception\ParseException;
 use Symfony\Component\Yaml\Yaml;
 
 class YamlProvider extends AbstractProvider
 {
+
+    /**
+     * @var iterable
+     */
+    private $articles;
+
+    /**
+     * @inheritDoc
+     */
+    public function __construct(ArticlesRepositoryInterface $repository = null, AbstractFactoryInterface $factory = null)
+    {
+        parent::__construct($repository, $factory);
+        $this->articles = $this->getArticles();
+    }
+
+
     public function getArticles(): array
     {
         try {
@@ -26,10 +45,9 @@ class YamlProvider extends AbstractProvider
 
     public function getArticlesFromCategory(string $category): array
     {
-        $articles = $this->getArticles();
         $result = [];
 
-        foreach ($articles as $article) {
+        foreach ($this->articles as $article) {
             if (strtolower($article['category']['title']) === strtolower($category)) {
                 $result[] = $article;
             }
@@ -43,10 +61,9 @@ class YamlProvider extends AbstractProvider
      * @param int $id
      * @return Article|null
      */
-    public function find(int $id): Article
+    public function find(int $id): ?Article
     {
-        $articles = $this->getArticles();
-        foreach ($articles as $article) {
+        foreach ($this->articles as $article) {
             if ($article['id'] === $id) {
                 return $this->factory->createArticle($article);
             }
@@ -55,19 +72,25 @@ class YamlProvider extends AbstractProvider
     }
 
 
-    public function findOneBy(array $criteria): Article
+    public function findOneBy(array $criteria): ?Article
     {
-        $articles = $this->getArticles();
+        // We need slugs, etc...
+        $articles = $this->factory->createArticles($this->articles);
+
         foreach ($articles as $article) {
             $found = true;
             foreach ($criteria as $criterion => $value) {
+                dump([$criterion => $value]);
                 if ( ! $found) break;
-                if (isset($article[$criterion])) {
-                    $found &= $article[$criterion] === $value;
+                /* @var $article Article */
+                $method = 'get' . camel_case($criterion);
+                if (method_exists($article, $method)) {
+                    $found &= $article->$method() === $value;
                 }
             }
             if ($found) {
-                return $this->factory->createArticle($article);
+//                return $this->factory->createArticle($article);
+                return $article;
             }
         }
         return null;
@@ -80,23 +103,17 @@ class YamlProvider extends AbstractProvider
 
     public function findLastFiveArticles(): array
     {
-        $articles = $this->getArticles();
+        $this->sortDate($this->articles);
 
-        usort($articles, function($a, $b) {
-           $dateA = \DateTime::createFromFormat('Y-m-d H:i:s', $a['datecreation']);
-           $dateB = \DateTime::createFromFormat('Y-m-d H:i:s', $b['datecreation']);
-           return $dateA <=> $dateB;
-        });
-
-        $sliced = array_slice($articles, 0, 4);
+        $sliced = array_slice($this->articles, 0, 5);
         return $this->createArticles($sliced);
     }
 
     public function findSpecialArticles(): array
     {
         $specials = [];
-        $articles = $this->getArticles();
-        foreach ($articles as $article) {
+
+        foreach ($this->articles as $article) {
             if (isset($article['special']) && $article['special']) {
                 $specials[] = $article;
             }
@@ -108,8 +125,8 @@ class YamlProvider extends AbstractProvider
     public function findSpotlightArticles(): array
     {
         $spotlights = [];
-        $articles = $this->getArticles();
-        foreach ($articles as $article) {
+
+        foreach ($this->articles as $article) {
             if (isset($article['spotlight']) && $article['spotlight']) {
                 $spotlights[] = $article;
             }
@@ -117,6 +134,22 @@ class YamlProvider extends AbstractProvider
 
         return $this->createArticles($spotlights);
     }
+
+    public function findArticlesSuggestions($articleId, $categoryId): array
+    {
+        $suggestions = [];
+
+        foreach ($this->articles as $article) {
+            if ($article['id'] !== $articleId && $article['category']['id']) {
+                $suggestions[] = $article;
+            }
+        }
+
+        $this->sortDate($suggestions);
+        $sliced = array_slice($suggestions, 0, 3);
+        return $this->createArticles($sliced);
+    }
+
 
     private function createArticles($articles)
     {
@@ -127,4 +160,17 @@ class YamlProvider extends AbstractProvider
         return $result;
     }
 
+    public function setStrategy(StrategyInterface $strategy)
+    {
+        $this->factory->setStrategy($strategy);
+    }
+
+    private function sortDate(array &$articles)
+    {
+        usort($articles, function($a, $b) {
+            $dateA = \DateTime::createFromFormat('Y-m-d H:i:s', $a['datecreation']);
+            $dateB = \DateTime::createFromFormat('Y-m-d H:i:s', $b['datecreation']);
+            return $dateA <=> $dateB;
+        });
+    }
 }

@@ -46,9 +46,14 @@ abstract class AbstractFactory implements AbstractFactoryInterface
         return $this;
     }
 
-    public function createArticle($args): Article
+    public function createArticle($args): ?Article
     {
         return $this->strategy->createArticle($args);
+    }
+
+    public function createArticles($articles): iterable
+    {
+        return $this->strategy->createArticles($articles);
     }
 
 

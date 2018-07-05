@@ -30,12 +30,12 @@ class DoctrineProvider extends AbstractProvider
         $this->em = $entityManager;
     }
 
-    public function find(int $id): Article
+    public function find(int $id): ?Article
     {
         return $this->em->getRepository(Article::class)->find($id);
     }
 
-    public function findOneBy(array $criteria): Article
+    public function findOneBy(array $criteria): ?Article
     {
         return $this->em->getRepository(Article::class)->findOneBy($criteria);
     }
@@ -59,5 +59,19 @@ class DoctrineProvider extends AbstractProvider
     {
         return $this->em->getRepository(Article::class)->findSpotlightArticles();
     }
+
+    public function findArticlesSuggestions($articleId, $categoryId): array
+    {
+        return $this->em->getRepository(Article::class)->findArticlesSuggestions($articleId, $categoryId);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function count()
+    {
+        return $this->em->getRepository(Article::class)->findTotalArticles();
+    }
+
 
 }

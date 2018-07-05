@@ -35,6 +35,16 @@ abstract class AbstractArticlesRepository implements ArticlesRepositoryInterface
         return $this->providers;
     }
 
+    /**
+     * @param ProviderInterface[] $providers
+     * @return AbstractArticlesRepository
+     */
+    public function setProviders(iterable $providers): AbstractArticlesRepository
+    {
+        $this->providers = $providers;
+        return $this;
+    }
+
     public function addProvider(ProviderInterface $provider)
     {
         if (array_key_exists(get_class($provider), $this->providers)) {
@@ -51,4 +61,14 @@ abstract class AbstractArticlesRepository implements ArticlesRepositoryInterface
             $provider->setArticlesRepository($this);
         }
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function count()
+    {
+        return count($this->providers);
+    }
+
+
 }

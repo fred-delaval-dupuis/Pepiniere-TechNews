@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Article;
 use App\Entity\Category;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
@@ -84,5 +85,18 @@ class ArticleRepository extends ServiceEntityRepository
 
         $pagination = new Paginator($qb);
         return $pagination;
+    }
+
+    public function findTotalArticles()
+    {
+        try {
+            return $this
+                ->createQueryBuilder('a')
+                ->select('COUNT(a)')
+                ->getQuery()
+                ->getSingleScalarResult();
+        } catch (NonUniqueResultException $e) {
+            return 0;
+        }
     }
 }

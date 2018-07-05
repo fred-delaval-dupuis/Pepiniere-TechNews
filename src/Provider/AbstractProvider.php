@@ -67,4 +67,13 @@ abstract class AbstractProvider implements ProviderInterface
         return $this;
     }
 
+    /**
+     * @inheritDoc
+     */
+    public function count()
+    {
+        return $this->repository->count();
+    }
+
+
 }

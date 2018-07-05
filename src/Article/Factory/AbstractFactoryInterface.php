@@ -13,5 +13,6 @@ use App\Entity\Article;
 
 Interface AbstractFactoryInterface
 {
-    public function createArticle($args): Article;
+    public function createArticle($args): ?Article;
+    public function createArticles($articles): iterable;
 }
