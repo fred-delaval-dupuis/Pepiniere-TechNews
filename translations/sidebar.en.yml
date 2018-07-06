@@ -1,0 +1,11 @@
+sidebar.hello: Hello
+sidebar.btn.write: 'New article'
+sidebar.btn.edit: 'Edit article'
+sidebar.popular.lastpublications: 'LAST PUBLICATIONS'
+sidebar.newsletter.title: NEWSLETTER
+sidebar.newsletter.slogan: 'Subscribe to<br>ou Newsletter !'
+sidebar.newsletter.description: 'Receive in exclusivity our latest publications,<br> updates and special offers...'
+sidebar.newsletter.email.placeholder: Email...
+sidebar.newsletter.btn: Subscribe!
+sidebar.connect.follow: 'FOLLOW US'
+sidebar.special.title: HOT

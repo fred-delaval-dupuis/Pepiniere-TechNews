@@ -1,15 +1,17 @@
 {% extends 'layout.html.twig' %}
 
+{% trans_default_domain 'security' %}
+
 {% set active = 'register' %}
 
 {% block page_title %}
-    Enregistrer un utilisateur
+    {{ 'security.register.title' | trans }}
 {% endblock %}
 
 {% block content %}
     <div class="row">
         <div class="col-xs-10 col-xs-offset-1">
-            <h3>Enregistrer un utilisateur</h3>
+            <h3>{{ 'security.registert.subtitle' | trans }}</h3>
             {# configured directy in config/packages/twig.yaml #}
             {#{% form_theme form 'bootstrap_3_layout.html.twig' %}#}
             {{ form(form) }}

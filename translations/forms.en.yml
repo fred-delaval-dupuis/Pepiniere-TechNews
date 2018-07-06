@@ -1,0 +1,9 @@
+form.user.firstname: 'First Name'
+form.user.placeholder.firstname: 'First name'
+form.user.lastname: 'Last Name'
+form.user.placeholder.lastname: 'Last name'
+form.user.placeholder.email: Email
+form.user.password: Password
+form.user.placeholder.password: '********'
+form.user.cgu.label: 'Terms of Service'
+form.user.submit: Submit

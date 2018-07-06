@@ -3,13 +3,13 @@
 {% set active = 'category_add' %}
 
 {% block page_title %}
-    Ajouter une catégorie
+    {% trans %}Ajouter une catégorie{% endtrans %}
 {% endblock %}
 
 {% block content %}
     <div class="row">
         <div class="col-xs-10 col-xs-offset-1">
-            <h3>Ajouter une catégorie</h3>
+            <h3>{% trans %}Ajouter une catégorie{% endtrans %}</h3>
             {{ form(form) }}
         </div>
     </div>

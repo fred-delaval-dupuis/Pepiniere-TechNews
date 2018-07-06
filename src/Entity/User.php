@@ -62,6 +62,11 @@ class User implements UserInterface, EquatableInterface
     private $articles;
 
     /**
+     * @ORM\Column(type="string", length=5)
+     */
+    private $locale;
+
+    /**
      * User constructor.
      * @param $id
      * @param $firstName
@@ -72,8 +77,9 @@ class User implements UserInterface, EquatableInterface
      * @param $lastConnectionDate
      * @param $roles
      * @param Article[] $articles
+     * @param $locale
      */
-    public function __construct($id = null, $firstName = null, $lastName = null, $email = null, $password = null, $registrationDate = null, $lastConnectionDate = null, $roles = null, array $articles = null)
+    public function __construct($id = null, $firstName = null, $lastName = null, $email = null, $password = null, $registrationDate = null, $lastConnectionDate = null, $roles = null, array $articles = null, $locale = null)
     {
         $this->id = $id;
         $this->firstName = $firstName;
@@ -84,6 +90,7 @@ class User implements UserInterface, EquatableInterface
         $this->lastConnectionDate = $lastConnectionDate;
         $this->roles = $roles ?: [];
         $this->articles = $articles ?: new ArrayCollection();
+        $this->locale = $locale;
     }
 
 
@@ -303,5 +310,22 @@ class User implements UserInterface, EquatableInterface
         return null;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getLocale()
+    {
+        return $this->locale;
+    }
+
+    /**
+     * @param mixed $locale
+     * @return User
+     */
+    public function setLocale($locale)
+    {
+        $this->locale = $locale;
+        return $this;
+    }
 
 }

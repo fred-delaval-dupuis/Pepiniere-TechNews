@@ -1,0 +1,9 @@
+form.user.firstname: Prénom
+form.user.placeholder.firstname: Prénom
+form.user.lastname: Nom
+form.user.placeholder.lastname: Nom
+form.user.placeholder.email: E-mail
+form.user.password: 'Mot de passe'
+form.user.placeholder.password: '********'
+form.user.cgu.label: 'Conditions Générales d''Utilisation'
+form.user.submit: 'Je m''enregistre'

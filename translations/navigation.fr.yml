@@ -1,0 +1,6 @@
+nav.home: ACCUEIL
+nav.logout: DECONNEXION
+nav.register: INSCRIPTION
+nav.login: CONNEXION
+nav.search.placeholder: Rechercher...
+nav.search.btn: Rechercher

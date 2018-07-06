@@ -41,6 +41,9 @@ class AppExtension extends AbstractExtension
             new \Twig_Function('isUserInvited', function() {
                 return $this->session->get('showModal');
             }),
+            new \Twig_Function('getLocales', function() {
+
+            }),
         ];
     }
 

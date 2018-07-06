@@ -1,0 +1,6 @@
+nav.home: HOME
+nav.logout: LOGOUT
+nav.register: REGISTER
+nav.login: LOGIN
+nav.search.placeholder: Search...
+nav.search.btn: Search

@@ -13,6 +13,7 @@ use App\Article\ArticlesRepository;
 use App\Entity\Article;
 use App\Entity\Category;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\VarDumper\VarDumper;
@@ -23,15 +24,18 @@ class IndexController extends Controller
     /**
      * Page d'accueil de notre site
      * @param ArticlesRepository $repository
+     * @param Request $request
      * @return Response
      */
-    public function index(ArticlesRepository $repository)
+    public function index(ArticlesRepository $repository, Request $request)
     {
 //        $repository = $this->getDoctrine()->getRepository(Article::class);
 
 //        dump($repository);
 
 //        dump($repository->findAll());
+
+        //dump($this->getUser()->getLocale());
 
         return $this->render('index/index.html.twig', [
 //            'articles'  => $repository->findAll(),
@@ -44,8 +48,10 @@ class IndexController extends Controller
     /**
      * Afficher les articles d'une catégorie
      *
-     * @Route(
-     *     "/category/{category}/{page}",
+     * @Route({
+     *     "en": "/category/{category}/{page}",
+     *     "fr": "/categorie/{category}/{page}"
+     * },
      *     name = "index_category",
      *     methods = {"GET"},
      *     requirements = {"category" = "\w+", "page" = "\d+"},

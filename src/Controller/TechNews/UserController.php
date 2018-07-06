@@ -19,8 +19,10 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 class UserController extends Controller
 {
     /**
-     * @Route(
-     *     "/register",
+     * @Route({
+     *     "en": "/register",
+     *     "fr": "/inscription"
+     * },
      *     name = "register"
      * )
      * @param Request $request
@@ -41,6 +43,7 @@ class UserController extends Controller
 
             $user = $handler->registerAsUser($userRequest);
 
+//            $this->addFlash('notice', 'Vous avez bien été enregistré.');
             $this->addFlash('notice', 'Vous avez bien été enregistré.');
             return $this->redirectToRoute('home');
         }

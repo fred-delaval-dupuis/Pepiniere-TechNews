@@ -16,6 +16,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Translation\TranslatorInterface;
 
 class NewsletterController extends Controller
 {
@@ -23,9 +24,10 @@ class NewsletterController extends Controller
      * @Route("/newsletter", name="newsletter")
      * @param Request $request
      * @param LoggerInterface $logger
+     * @param TranslatorInterface $translator
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function newsletter(Request $request, LoggerInterface $logger)
+    public function newsletter(Request $request, LoggerInterface $logger, TranslatorInterface $translator)
     {
         $newsletter = new Newsletter();
 
@@ -48,7 +50,8 @@ class NewsletterController extends Controller
             $em->persist($newsletter);
             $em->flush();
 
-            $this->addFlash('success', 'Merci pour votre inscription à notre newsletter !');
+//            $this->addFlash('success', 'Merci pour votre inscription à notre newsletter !');
+            $this->addFlash('success', $translator->trans('Merci pour votre inscription à notre newsletter !'));
 
             return new JsonResponse(json_encode('success'), 200);
         } else {

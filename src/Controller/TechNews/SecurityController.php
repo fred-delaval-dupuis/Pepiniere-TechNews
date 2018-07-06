@@ -19,7 +19,11 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 class SecurityController extends Controller
 {
     /**
-     * @Route("/login", name="security_login")
+     * @Route({
+     *     "en": "/login",
+     *     "fr": "/connexion"
+     * },
+     *     name="security_login")
      * @param Request $request
      * @param AuthenticationUtils $authenticationUtil
      * @return Response

@@ -1,3 +1,4 @@
+{% trans_default_domain 'sidebar' %}
 <div id="newsletterModal" class="modal fade">
     <div class="modal-dialog modal-newsletter">
         <div class="modal-content">
@@ -9,9 +10,8 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span>&times;</span></button>
             </div>
             <div class="modal-body text-center">
-                <h4>Inscrivez-vous<br>à notre Newsletter !</h4>
-                <p>Recevez en exclusivité nos dernières publications,<br>
-                    mises à jours et offres spéciales...</p>
+                <h4>{{ 'sidebar.' }}</h4>
+                <p>{% trans %}Recevez en exclusivité nos dernières publications,<br> mises à jours et offres spéciales...{% endtrans %}</p>
                 <div class="input-group">
                     {{ form_row(form.email) }}
                     <span class="input-group-btn">

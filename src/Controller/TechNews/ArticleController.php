@@ -15,6 +15,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Translation\TranslatorInterface;
 
 class ArticleController extends Controller
 {
@@ -61,23 +62,26 @@ class ArticleController extends Controller
 
 //        $em->flush();
 
-        $this->addFlash('notice', 'Nouvel article ajouté: ' . $article->getId() . ' | nouvelle catégorie: ' . $category->getTitle() . ' | nouvel utilisateur: ' . $user->getLastName());
+//        $this->addFlash('notice', 'Nouvel article ajouté: ' . $article->getId() . ' | nouvelle catégorie: ' . $category->getTitle() . ' | nouvel utilisateur: ' . $user->getLastName());
 
         return $this->redirectToRoute('home');
     }
 
     /**
-     * @Route(
-     *     "/article/add",
+     * @Route({
+     *     "en": "/article/new",
+     *     "fr": "/article/ajouter"
+     * },
      *     name = "article_add"
      * )
      * @Security("has_role('ROLE_AUTHOR')")
      * @param Request $request
      * @param ArticleRequestHandler $articleRequestHandler
+     * @param TranslatorInterface $translator
      * @return Response
      * @throws \Exception
      */
-    public function addArticle(Request $request, ArticleRequestHandler $articleRequestHandler)
+    public function addArticle(Request $request, ArticleRequestHandler $articleRequestHandler, TranslatorInterface $translator)
     {
         $articleRequest = new ArticleRequest($this->getUser());
 
@@ -94,13 +98,15 @@ class ArticleController extends Controller
 
         return $this->render('article/article_add.html.twig', array(
             'form'      => $form->createView(),
-            'action'    => 'Rédiger',
+            'action'    => $translator->trans('Rédiger'),
         ));
     }
 
     /**
-     * @Route(
-     *     "/article/edit/{id<\d+>}",
+     * @Route({
+     *     "en": "/article/edit/{id<\d+>}",
+     *     "fr": "/article/modifier/{id<\d+>}"
+     * },
      *     name = "article_edit",
      * )
      * @Security("has_role('ROLE_AUTHOR')")
@@ -108,13 +114,14 @@ class ArticleController extends Controller
      * @param Request $request
      * @param ArticleRequestHandler $handler
      * @param Packages $packages
+     * @param TranslatorInterface $translator
      * @return Response
      * @throws \Exception
      */
-    public function editArticle(Article $article, Request $request, ArticleRequestHandler $handler, Packages $packages)
+    public function editArticle(Article $article, Request $request, ArticleRequestHandler $handler, Packages $packages, TranslatorInterface $translator)
     {
         if (null === $article) {
-            $this->addFlash('error', "L'article que vous souhaitez éditer n'existe pas.");
+            $this->addFlash('error', $translator->trans("L'article que vous souhaitez éditer n'existe pas."));
             return $this->redirectToRoute('home');
         }
 
@@ -139,7 +146,7 @@ class ArticleController extends Controller
 
         return $this->render('article/article_edit.html.twig', [
             'form'      => $form->createView(),
-            'action'    => 'Editer',
+            'action'    => $translator->trans('Editer'),
         ]);
     }
 

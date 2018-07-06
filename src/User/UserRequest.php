@@ -64,12 +64,19 @@ class UserRequest
     private $roles;
 
     /**
+     * @var string
+     * @Assert\Locale(groups={'fr', 'en})
+     */
+    private $locale;
+
+    /**
      * UserRequest constructor.
      * @param string $firstName
      * @param string $lastName
      * @param string $email
      * @param string $password
      * @param \DateTime $registrationDate
+     * @param string $locale
      * @param array $roles
      */
     public function __construct(
@@ -78,7 +85,8 @@ class UserRequest
         string $email = null,
         string $password = null,
         \DateTime $registrationDate = null,
-        array $roles = ['ROLE_USER']
+        array $roles = ['ROLE_USER'],
+        string $locale = null
     )
     {
         $this->firstName = $firstName;
@@ -87,6 +95,7 @@ class UserRequest
         $this->password = $password;
         $this->registrationDate = $registrationDate ?: new \DateTime();
         $this->roles = $roles;
+        $this->locale = $locale;
     }
 
     /**
@@ -205,4 +214,23 @@ class UserRequest
     {
         return $this->email;
     }
+
+    /**
+     * @return string
+     */
+    public function getLocale(): string
+    {
+        return $this->locale;
+    }
+
+    /**
+     * @param string $locale
+     * @return UserRequest
+     */
+    public function setLocale(string $locale): UserRequest
+    {
+        $this->locale = $locale;
+        return $this;
+    }
+    
 }

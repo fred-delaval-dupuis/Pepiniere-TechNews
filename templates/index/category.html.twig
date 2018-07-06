@@ -22,7 +22,7 @@
                         {% include 'components/_article.html.twig' %}
                     {% endfor %}
                 {% else %}
-                    <div class="alert alert-danger"><strong>Aucune publication pour le moment</strong></div>
+                    <div class="alert alert-danger"><strong>{% trans %}Aucune publication pour le moment{% endtrans %}</strong></div>
                 {% endif %}
             </div>
             {% if nbPages > 0 %}

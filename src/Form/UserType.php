@@ -20,17 +20,16 @@ class UserType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('firstName',  TextType::class,        ['label' => 'Prénom', 'attr' => ['placeholder' => 'Saisissez votre prénom']])
-            ->add('lastName',   TextType::class,        ['label' => 'Nom', 'attr' => ['placeholder' => 'Saisissez votre nom']])
-//            ->add('username',   TextType::class,        ['label' => 'Nom d\'utilisateur', 'attr' => ['placeholder' => 'Saisissez votre nom d\'utilisateur']])
-            ->add('email',      EmailType::class,       ['attr' => ['placeholder' => 'Saisissez votre e-mail']])
-            ->add('password',   PasswordType::class,    ['label' => 'Mot de passe', 'attr' => ['placeholder' => '********']])
+            ->add('firstName',  TextType::class,        ['label' => 'form.user.firstname', 'attr' => ['placeholder' => 'form.user.placeholder.firstname']])
+            ->add('lastName',   TextType::class,        ['label' => 'form.user.lastname', 'attr' => ['placeholder' => 'form.user.placeholder.lastname']])
+            ->add('email',      EmailType::class,       ['attr' => ['placeholder' => 'form.user.placeholder.email']])
+            ->add('password',   PasswordType::class,    ['label' => 'form.user.password', 'attr' => ['placeholder' => 'form.user.placeholder.password']])
             ->add('cgu',        CheckboxType::class,    [
                 'mapped'        => false,
                 'constraints'   => [ new IsTrue() ],
-                'label'         => 'J\'accepte les conditions générales d\'utilisation',
+                'label'         => 'form.user.cgu.label',
             ])
-            ->add('submit',     SubmitType::class,      ['label' => 'S\'inscrire'])
+            ->add('submit',     SubmitType::class,      ['label' => 'form.user.submit'])
         ;
     }
 
@@ -38,6 +37,7 @@ class UserType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => UserRequest::class,
+            'translation_domain' => 'forms',
         ]);
     }
 }

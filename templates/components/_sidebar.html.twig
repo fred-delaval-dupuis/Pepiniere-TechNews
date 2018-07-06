@@ -1,25 +1,27 @@
+{% trans_default_domain 'sidebar' %}
+
 <!--colright-->
 <div class="col-md-4 col-sm-12">
 
     {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-        <h3 class="text-center">Bonjour {{ app.user.firstName }}</h3>
+        <h3 class="text-center">{{ 'sidebar.hello' | trans }} {{ app.user.firstName }}</h3>
         <h4 class="text-center">
             {% if is_granted('ROLE_ADMIN') %}
-                Administrateur
+                {% trans from 'roles' %}role.admin{% endtrans %}
             {% elseif is_granted('ROLE_AUTHOR') %}
-                Auteur
+                {% trans from 'roles' %}role.author{% endtrans %}
             {% else %}
-                Membre
+                {% trans from 'roles' %}role.member{% endtrans %}
             {% endif %}
         </h4>
         <ul class="list-group">
             {% if is_granted('ROLE_AUTHOR') %}
                 <li class="list-group-item">
-                    <a href="{{ path('article_add') }}">Rédiger un article</a>
+                    <a href="{{ path('article_add') }}">{{ 'sidebar.btn.write' | trans }}</a>
                 </li>
                 {% if article is defined and article and app.user.id == article.author.id %}
                     <li class="list-group-item">
-                        <a href="{{ path('article_edit', {id: article.id}) }}">Modifier l'article</a>
+                        <a href="{{ path('article_edit', {id: article.id}) }}">{{ 'sidebar.btn.edit' | trans }}</a>
                     </li>
                 {% endif %}
             {% endif %}
@@ -30,7 +32,7 @@
     <ul role="tablist" class="tab-popular">
         <li class="active">
             <a href="#tab1" role="tab" data-toggle="tab">
-                DERNI&Egrave;RES PUBLICATIONS
+                {{ 'sidebar.popular.lastpublications' | trans }}
             </a>
         </li>
     </ul>
@@ -47,16 +49,16 @@
 
     <!-- subcribe box-->
     <div class="subcribe-box">
-        <h3>NEWSLETTER</h3>
-        <p>Inscrivez-vous pour recevoir nos dernières publications.</p>
-        <input type="text" placeholder="Votre Email..." />
-        <button class="my-btn">Je m'inscris</button>
+        <h3>{{ 'sidebar.newsletter.title' | trans }}</h3>
+        <p>{{ 'sidebar.newsletter.description' | trans | raw }}</p>
+        <input type="text" placeholder="{{ 'sidebar.newsletter.email.placeholder' | trans }}" />
+        <button class="my-btn">{{ 'sidebar.newsletter.btn' | trans }}</button>
     </div>
     <!-- connect us-->
     <div class="connect-us">
         <div class="widget-title">
 			<span>
-				SUIVEZ-NOUS
+				{{ 'sidebar.connect.follow' | trans }}
 			</span>
         </div>
         <ul class="list-social-icon">
@@ -97,7 +99,7 @@
     <div class="connect-us">
         <div class="widget-title">
 			<span>
-				En Avant
+				{{ 'sidebar.special.title' | trans }}
 			</span>
         </div>
         <div class="list-special">

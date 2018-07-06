@@ -25,7 +25,6 @@ class ArticlesRepository extends AbstractArticlesRepository
             }
         }
 
-        // Gestion des priorités des providers ?
         if (empty($this->unique($articles))) {
             return null;
         } else {

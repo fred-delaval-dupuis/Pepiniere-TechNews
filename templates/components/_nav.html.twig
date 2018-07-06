@@ -1,16 +1,18 @@
+{% trans_default_domain 'navigation' %}
+
 <!--menu mobile-->
 <nav class="menu-res hidden-lg hidden-md ">
     <div class="menu-res-inner">
         <ul>
-            <li {{ active == 'home' ? 'class="current"' }}><a href="{{ url('home') }}">HOME</a></li>
+            <li {{ active == 'home' ? 'class="current"' }}><a href="{{ url('home') }}">{{ 'nav.home' | trans }}</a></li>
             {% for category in categories %}
-                <li {{ active == category.slug ? 'class="current"' }}><a href="{{ url('index_category', {'category': category.slug}) }}">{{ category.title|upper }}</a></li>
+                <li {{ active == category.slug ? 'class="current"' }}><a href="{{ url('index_category', {'_locale': app.request.locale, 'category': category.slug}) }}">{{ category.title|upper }}</a></li>
             {% endfor %}
             {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                <li><a href="{{ url('security_logout') }}">DECONNEXION</a></li>
+                <li><a href="{{ url('security_logout') }}">{{ 'nav.logout' | trans }}</a></li>
             {% else %}
-                <li {{ active == 'register' ? 'class="current"' }}><a href="{{ url('register') }}">INSCRIPTION</a></li>
-                <li {{ active == 'security_login' ? 'class="current"' }}><a href="{{ url('security_login') }}">CONNEXION</a></li>
+                <li {{ active == 'register' ? 'class="current"' }}><a href="{{ url('register', {'_locale': app.request.locale}) }}">{{ 'nav.register' | trans }}</a></li>
+                <li {{ active == 'security_login' ? 'class="current"' }}><a href="{{ url('security_login') }}">{{ 'nav.login' | trans }}</a></li>
             {% endif %}
 
         </ul>
@@ -36,18 +38,18 @@
             </div>
             <ul class="hidden-sm hidden-xs">
                 <li {{ active == 'home' ? 'class="current"' }}>
-                    <a href="{{ url('home') }}">Accueil </a>
+                    <a href="{{ url('home') }}">{{ 'nav.home' | trans }}</a>
                 </li>
                 {% for category in categories %}
                     <li {{ active == category.slug ? 'class="current"' }}>
-                        <a href="{{ url('index_category', {'category': category.slug}) }}">{{ category.title|title }}</a>
+                        <a href="{{ url('index_category', {'_locale': app.request.locale, 'category': category.slug}) }}">{{ category.title|title }}</a>
                     </li>
                 {% endfor %}
                 {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                    <li><a href="{{ url('security_logout') }}">DECONNEXION</a></li>
+                    <li><a href="{{ url('security_logout') }}">{{ 'nav.logout' | trans }}</a></li>
                 {% else %}
-                    <li {{ active == 'register' ? 'class="current"' }}><a href="{{ url('register') }}">INSCRIPTION</a></li>
-                    <li {{ active == 'security_login' ? 'class="current"' }}><a href="{{ url('security_login') }}">CONNEXION</a></li>
+                    <li {{ active == 'register' ? 'class="current"' }}><a href="{{ url('register', {'_locale': app.request.locale}) }}">{{ 'nav.register' | trans }}</a></li>
+                    <li {{ active == 'security_login' ? 'class="current"' }}><a href="{{ url('security_login') }}">{{ 'nav.login' | trans }}</a></li>
                 {% endif %}
             </ul>
             <div class="search-icon">
@@ -55,8 +57,8 @@
                     <i class="fa fa-search"></i>
                 </div>
                 <div class="search-box">
-                    <input type="text" placeholder="Rechercher..." />
-                    <button>Lancer</button>
+                    <input type="text" placeholder="{{ 'nav.search.placeholder' | trans }}" />
+                    <button>{{ 'nav.search.btn' | trans }}</button>
                 </div>
             </div>
         </nav>
