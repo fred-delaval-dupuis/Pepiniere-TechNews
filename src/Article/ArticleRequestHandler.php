@@ -13,32 +13,48 @@ use App\Entity\Article;
 use App\Service\Article\Uploader;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Workflow\Exception\LogicException;
+use Symfony\Component\Workflow\Exception\TransitionException;
+use Symfony\Component\Workflow\Registry;
 
 class ArticleRequestHandler
 {
-    private $em, $articleFactory, $uploader;
+    private $em, $articleFactory, $uploader, $workflows;
 
     /**
      * ArticleRequestHandler constructor.
      * @param EntityManagerInterface $em
      * @param ArticleFactory $articleFactory
      * @param Uploader $uploader
+     * @param Registry $workflows
      */
-    public function __construct(EntityManagerInterface $em, ArticleFactory $articleFactory, Uploader $uploader)
+    public function __construct(EntityManagerInterface $em, ArticleFactory $articleFactory, Uploader $uploader, Registry $workflows)
     {
         $this->em = $em;
         $this->articleFactory = $articleFactory;
         $this->uploader = $uploader;
+        $this->workflows = $workflows;
     }
 
     /**
      * Handles an article request
      * @param ArticleRequest $articleRequest
      * @param Article $article
-     * @return Article
+     * @return Article|null
      */
     public function handle(ArticleRequest $articleRequest, Article $article)
     {
+        $workflow = $this->workflows->get($articleRequest);
+
+//        dd($workflow->getEnabledTransitions($articleRequest));
+
+        # Workflow management
+        try {
+            $workflow->apply($articleRequest, 'to_review');
+        } catch (LogicException $e) {
+            return null;
+        }
+
         // We update the persisted article
         $articleRequest->updateArticle($article);
 

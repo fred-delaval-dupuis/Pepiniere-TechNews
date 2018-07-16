@@ -6,7 +6,7 @@
             </a>
         </div>
         <div class="col-md-7 col-sm-7 col-xs-12">
-            <h3><a href="{{ url('index_article', {'category': category.slug, 'slug': article.slug, 'id': article.id} ) }}">{{ article.title }}</a></h3>
+            <h3><a href="{{ url('index_article', {'category': article.category.slug, 'slug': article.slug, 'id': article.id} ) }}">{{ article.title }}</a></h3>
             <div class="meta-post">
                 <a href="javascript:void(0)">
                     {{ article.author.firstname ~ ' ' ~ article.author.lastname }}
@@ -16,5 +16,68 @@
             </div>
             {{ article.content|summary }}
         </div>
+
+        {% if is_granted('ROLE_AUTHOR') and workflow_can(article, 'to_approval') %}
+            <div class="col-xs-12">
+                <br>
+                <a href="{{ path('article_workflow', {id: article.id, status: 'to_approval', redirect: app.request.get('_route')}) }}" class="btn btn-primary">
+                    {{ 'Envoyer au rédacteur en chef'|trans }}
+                </a>
+            </div>
+        {% endif %}
+
+        {% if is_granted('ROLE_EDITOR') %}
+            <div class="col-xs-12"><br>
+            {% if workflow_can(article, 'editor_ok') %}
+                <a href="{{ path('article_workflow', {id: article.id, status: 'editor_ok', redirect: app.request.get('_route')}) }}" class="btn btn-success">
+                    {{ 'Approuver et demander la publication'|trans }}
+                </a>
+            {% endif %}
+
+            {% if workflow_can(article, 'editor_fail') %}
+                <a href="{{ path('article_workflow', {id: article.id, status: 'editor_fail', redirect: app.request.get('_route')}) }}" class="btn btn-warning">
+                    {{ 'Renvoyer pour révision'|trans }}
+                </a>
+            {% endif %}
+
+            {% if workflow_can(article, 'editor_rejected') %}
+                <a href="{{ path('article_workflow', {id: article.id, status: 'editor_rejected', redirect: app.request.get('_route')}) }}" class="btn btn-danger">
+                    {{ 'Refuser et annuler'|trans }}
+                </a>
+            {% endif %}
+            </div>
+        {% endif %}
+
+        {% if is_granted('ROLE_CORRECTOR') %}
+            <div class="col-xs-12"><br>
+            {% if workflow_can(article, 'corr_approved') %}
+                <a href="{{ path('article_workflow', {id: article.id, status: 'corr_approved', redirect: app.request.get('_route')}) }}" class="btn btn-success">
+                    {{ 'Valider la correction'|trans }}
+                </a>
+            {% endif %}
+
+            {% if workflow_can(article, 'corr_failure') %}
+                <a href="{{ path('article_workflow', {id: article.id, status: 'corr_failure', redirect: app.request.get('_route')}) }}" class="btn btn-danger">
+                    {{ 'Problème de correction'|trans }}
+                </a>
+            {% endif %}
+            </div>
+        {% endif %}
+
+        {% if is_granted('ROLE_PUBLISHER') %}
+            <div class="col-xs-12"><br>
+                {% if workflow_can(article, 'pub_approved') %}
+                    <a href="{{ path('article_workflow', {id: article.id, status: 'pub_approved', redirect: app.request.get('_route')}) }}" class="btn btn-success">
+                        {{ 'Valider la publication'|trans }}
+                    </a>
+                {% endif %}
+
+                {% if workflow_can(article, 'pub_failure') %}
+                    <a href="{{ path('article_workflow', {id: article.id, status: 'pub_failure', redirect: app.request.get('_route')}) }}" class="btn btn-danger">
+                        {{ 'Problème de correction'|trans }}
+                    </a>
+                {% endif %}
+            </div>
+        {% endif %}
     </div>
 </article>

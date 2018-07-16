@@ -72,8 +72,12 @@ class Article
     private $slug;
 
     /**
+     * @ORM\Column(type="array")
+     */
+    private $status;
+
+    /**
      * Article constructor.
-     * @param $id
      * @param $title
      * @param $content
      * @param $featuredImage
@@ -82,8 +86,10 @@ class Article
      * @param $createdAt
      * @param Category $category
      * @param User $author
+     * @param null $slug
+     * @param null $status
      */
-    public function __construct($title = null, $content = null, $featuredImage = null, $special = null, $spotlight = null, $createdAt = null, Category $category = null, User $author = null, $slug = null)
+    public function __construct($title = null, $content = null, $featuredImage = null, $special = null, $spotlight = null, $createdAt = null, Category $category = null, User $author = null, $slug = null, $status = null)
     {
         $this->title = $title;
         $this->content = $content;
@@ -94,6 +100,7 @@ class Article
         $this->category = $category;
         $this->author = $author;
         $this->slug = $slug;
+        $this->status = $status;
     }
 
     /**
@@ -279,6 +286,18 @@ class Article
     public function setSlug($slug)
     {
         $this->slug = $slug;
+        return $this;
+    }
+
+    public function getStatus(): ?array
+    {
+        return $this->status;
+    }
+
+    public function setStatus(array $status): self
+    {
+        $this->status = $status;
+
         return $this;
     }
 

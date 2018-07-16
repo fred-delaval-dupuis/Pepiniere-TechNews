@@ -24,7 +24,8 @@ class ArticleFactory
             $articleRequest->getCreatedAt(),
             $articleRequest->getCategory(),
             $articleRequest->getAuthor(),
-            $articleRequest->getSlug()
+            $articleRequest->getSlug(),
+            $articleRequest->getStatus()
         );
     }
 
@@ -39,6 +40,7 @@ class ArticleFactory
             ->setCreatedAt($article->getCreatedAt())
             ->setCategory($article->getCategory())
             ->setSlug($article->getSlug())
+            ->setStatus($article->getStatus())
         ;
     }
 

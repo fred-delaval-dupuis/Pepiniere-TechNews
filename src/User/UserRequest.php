@@ -65,7 +65,7 @@ class UserRequest
 
     /**
      * @var string
-     * @Assert\Locale(groups={'fr', 'en})
+     * @Assert\Locale(canonicalize = true)
      */
     private $locale;
 

@@ -9,3 +9,11 @@ sidebar.newsletter.email.placeholder: Email...
 sidebar.newsletter.btn: Subscribe!
 sidebar.connect.follow: 'FOLLOW US'
 sidebar.special.title: HOT
+sidebar:
+  article:
+    published: 'Published Articles'
+    pending: 'Pending Articles'
+    approval: 'Waiting Approval'
+    corrector: 'Waiting Correction'
+    publisher: 'Waiting Publishing'
+logout: 'Sign Out'

@@ -6,12 +6,12 @@
         <ul>
             <li {{ active == 'home' ? 'class="current"' }}><a href="{{ url('home') }}">{{ 'nav.home' | trans }}</a></li>
             {% for category in categories %}
-                <li {{ active == category.slug ? 'class="current"' }}><a href="{{ url('index_category', {'_locale': app.request.locale, 'category': category.slug}) }}">{{ category.title|upper }}</a></li>
+                <li {{ active == category.slug ? 'class="current"' }}><a href="{{ url('index_category', {'category': category.slug}) }}">{{ category.title|upper }}</a></li>
             {% endfor %}
             {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                 <li><a href="{{ url('security_logout') }}">{{ 'nav.logout' | trans }}</a></li>
             {% else %}
-                <li {{ active == 'register' ? 'class="current"' }}><a href="{{ url('register', {'_locale': app.request.locale}) }}">{{ 'nav.register' | trans }}</a></li>
+                <li {{ active == 'register' ? 'class="current"' }}><a href="{{ url('register') }}">{{ 'nav.register' | trans }}</a></li>
                 <li {{ active == 'security_login' ? 'class="current"' }}><a href="{{ url('security_login') }}">{{ 'nav.login' | trans }}</a></li>
             {% endif %}
 
@@ -42,13 +42,13 @@
                 </li>
                 {% for category in categories %}
                     <li {{ active == category.slug ? 'class="current"' }}>
-                        <a href="{{ url('index_category', {'_locale': app.request.locale, 'category': category.slug}) }}">{{ category.title|title }}</a>
+                        <a href="{{ url('index_category', {'category': category.slug}) }}">{{ category.title|title }}</a>
                     </li>
                 {% endfor %}
                 {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                     <li><a href="{{ url('security_logout') }}">{{ 'nav.logout' | trans }}</a></li>
                 {% else %}
-                    <li {{ active == 'register' ? 'class="current"' }}><a href="{{ url('register', {'_locale': app.request.locale}) }}">{{ 'nav.register' | trans }}</a></li>
+                    <li {{ active == 'register' ? 'class="current"' }}><a href="{{ url('register') }}">{{ 'nav.register' | trans }}</a></li>
                     <li {{ active == 'security_login' ? 'class="current"' }}><a href="{{ url('security_login') }}">{{ 'nav.login' | trans }}</a></li>
                 {% endif %}
             </ul>

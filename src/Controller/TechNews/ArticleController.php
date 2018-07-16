@@ -2,6 +2,7 @@
 
 namespace App\Controller\TechNews;
 
+use App\Article\ArticleWorkflowHandler;
 use App\Controller\HelperTrait;
 use App\Entity\Article;
 use App\Article\ArticleRequest;
@@ -16,6 +17,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Translation\TranslatorInterface;
+use Symfony\Component\Workflow\Exception\LogicException;
+use Symfony\Component\Workflow\Registry;
 
 class ArticleController extends Controller
 {
@@ -84,6 +87,7 @@ class ArticleController extends Controller
     public function addArticle(Request $request, ArticleRequestHandler $articleRequestHandler, TranslatorInterface $translator)
     {
         $articleRequest = new ArticleRequest($this->getUser());
+//        $articleRequest->setStatus(['draft']);
 
         $form = $this->createForm(ArticleType::class, $articleRequest);
 
@@ -150,4 +154,137 @@ class ArticleController extends Controller
         ]);
     }
 
+    /**
+     * @Route({
+     *     "fr": "/mes-articles",
+     *     "en": "/my-articles"
+     *     },
+     *     name="article_published"
+     * )
+     * @Security("has_role('ROLE_AUTHOR')")
+     * @param TranslatorInterface $translator
+     * @return Response
+     */
+    public function publishedArticles(TranslatorInterface $translator)
+    {
+        $author = $this->getUser();
+
+        $articles = $this->getDoctrine()->getRepository(Article::class)->findAuthorArticlesByStatus($author->getId(), 'published');
+
+        return $this->render('article/articles.html.twig', [
+            'articles'  => $articles,
+            'title'     => $translator->trans('sidebar.article.published', [], 'sidebar'),
+        ]);
+    }
+
+    /**
+     * @Route({
+     *     "fr": "/mes-articles/en-attente",
+     *     "en": "/my-articles/pending"
+     *     },
+     *     name="article_pending"
+     * )
+     * @Security("has_role('ROLE_AUTHOR')")
+     * @param TranslatorInterface $translator
+     * @return Response
+     */
+    public function pendingArticles(TranslatorInterface $translator)
+    {
+        $author = $this->getUser();
+
+        $articles = $this->getDoctrine()->getRepository(Article::class)->findAuthorArticlesByStatus($author->getId(), 'review');
+
+        return $this->render('article/articles.html.twig', [
+            'articles' => $articles,
+            'title'     => $translator->trans('sidebar.article.pending', [], 'sidebar'),
+        ]);
+    }
+
+    /**
+     * @Route({
+     *     "fr": "/les-articles/en-attente-de-validation",
+     *     "en": "/articles/pending-approval"
+     *     },
+     *     name="article_approval"
+     * )
+     * @Security("has_role('ROLE_EDITOR')")
+     * @param TranslatorInterface $translator
+     * @return Response
+     */
+    public function approvalArticles(TranslatorInterface $translator)
+    {
+        $articles = $this->getDoctrine()->getRepository(Article::class)->findArticlesByStatus('editor');
+
+        return $this->render('article/articles.html.twig', [
+            'articles' => $articles,
+            'title'     => $translator->trans('sidebar.article.approval', [], 'sidebar'),
+        ]);
+    }
+
+    /**
+     * @Route({
+     *     "fr": "/les-articles/en-attente-de-correction",
+     *     "en": "/articles/pending-correction"
+     *     },
+     *     name="article_corrector"
+     * )
+     * @Security("has_role('ROLE_CORRECTOR')")
+     * @param TranslatorInterface $translator
+     * @return Response
+     */
+    public function correctorArticles(TranslatorInterface $translator)
+    {
+        $articles = $this->getDoctrine()->getRepository(Article::class)->findArticlesByStatus('corrector');
+
+        return $this->render('article/articles.html.twig', [
+            'articles' => $articles,
+            'title'     => $translator->trans('sidebar.article.corrector', [], 'sidebar'),
+        ]);
+    }
+
+    /**
+     * @Route({
+     *     "fr": "/les-articles/en-attente-de-publication",
+     *     "en": "/articles/pending-publishing"
+     *     },
+     *     name="article_publisher"
+     * )
+     * @Security("has_role('ROLE_PUBLISHER')")
+     * @param TranslatorInterface $translator
+     * @return Response
+     */
+    public function publisherArticles(TranslatorInterface $translator)
+    {
+        $articles = $this->getDoctrine()->getRepository(Article::class)->findArticlesByStatus('publisher');
+
+        return $this->render('article/articles.html.twig', [
+            'articles' => $articles,
+            'title'     => $translator->trans('sidebar.article.publisher', [], 'sidebar'),
+        ]);
+    }
+
+    /**
+     * @Route(
+     *     "workflow/{status}/{id}",
+     *     name="article_workflow"
+     * )
+     * @Security("has_role('ROLE_AUTHOR')")
+     * @param string $status
+     * @param Article $article
+     * @param ArticleWorkflowHandler $awh
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function workflow(string $status, Article $article, ArticleWorkflowHandler $awh, Request $request)
+    {
+        try {
+            $awh->handle($article, $status);
+            $this->addFlash('notice', 'Votre article a bien été transmis. Merci.');
+        } catch (LogicException $e) {
+            $this->addFlash('error', 'Changement de statut impossible.');
+        }
+
+        $redirect = $request->get('redirect') ?: 'index';
+        return $this->redirectToRoute($redirect);
+    }
 }

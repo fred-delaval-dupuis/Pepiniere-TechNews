@@ -1,0 +1,30 @@
+{% extends "layout.html.twig" %}
+
+{% set active = title %}
+
+{% block page_title %}
+    {{ title|title }}
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <!--colleft-->
+        <div class="col-md-8 col-sm-12">
+            <div class="box-caption">
+                <span>{{ title }}</span>
+            </div>
+            <!--list-news-cate-->
+            <div class="list-news-cate">
+                {% if articles is not empty %}
+                    {% for article in articles %}
+                        {% include 'components/_article.html.twig' %}
+                    {% endfor %}
+                {% else %}
+                    <div class="alert alert-danger"><strong>{% trans %}Aucune publication pour le moment{% endtrans %}</strong></div>
+                {% endif %}
+            </div>
+
+        </div>
+        {{ render(controller('App\\Controller\\TechNews\\IndexController::sidebar')) }}
+    </div>
+{% endblock %}

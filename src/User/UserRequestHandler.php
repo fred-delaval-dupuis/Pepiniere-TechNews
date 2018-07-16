@@ -56,6 +56,7 @@ class UserRequestHandler
     public function registerAsUser(UserRequest $request)
     {
         $user = $this->factory->createUserFromRequest($request);
+        $user->setLocale('fr');
 
         return $this->handle($user);
     }

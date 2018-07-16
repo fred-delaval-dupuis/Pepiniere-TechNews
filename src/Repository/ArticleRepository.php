@@ -99,4 +99,78 @@ class ArticleRepository extends ServiceEntityRepository
             return 0;
         }
     }
+
+    /**
+     * @param int $authorId
+     * @param string $status
+     * @return mixed
+     */
+    public function findAuthorArticlesByStatus(int $authorId, string $status)
+    {
+        return $this->createQueryBuilder('a')
+            ->where('a.author = :author_id')
+            ->setParameter('author_id', $authorId)
+            ->andWhere('a.status LIKE :status')
+            ->setParameter('status', "%$status%")
+            ->orderBy('a.createdAt', 'DESC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    /**
+     * @param string $status
+     * @return mixed
+     */
+    public function findArticlesByStatus(string $status)
+    {
+        return $this->createQueryBuilder('a')
+            ->where('a.status LIKE :status')
+            ->setParameter('status', "%$status%")
+            ->orderBy('a.createdAt', 'DESC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    /**
+     * @param int $authorId
+     * @param string $status
+     * @return mixed
+     */
+    public function countAuthorArticlesByStatus(int $authorId, string $status)
+    {
+        try {
+            return $this->createQueryBuilder('a')
+                ->select('COUNT(a)')
+                ->where('a.author = :author_id')
+                ->setParameter('author_id', $authorId)
+                ->andWhere('a.status LIKE :status')
+                ->setParameter('status', "%$status%")
+                ->getQuery()
+                ->getSingleScalarResult()
+                ;
+        } catch (NonUniqueResultException $e) {
+            return 0;
+        }
+    }
+
+    /**
+     * @param string $status
+     * @return int|mixed
+     */
+    public function countArticlesByStatus(string $status)
+    {
+        try {
+            return $this->createQueryBuilder('a')
+                ->select('COUNT(a)')
+                ->where('a.status LIKE :status')
+                ->setParameter('status', "%$status%")
+                ->getQuery()
+                ->getSingleScalarResult()
+                ;
+        } catch (NonUniqueResultException $e) {
+            return 0;
+        }
+    }
 }

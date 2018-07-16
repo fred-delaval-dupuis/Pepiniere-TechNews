@@ -1,13 +1,13 @@
 {% extends 'layout.html.twig' %}
 
 {% block page_title %}
-    {{ action }}{% trans %} un article{% endtrans %}
+    {{ action }} {% trans %}un article{% endtrans %}
 {% endblock %}
 
 {% block content %}
     <div class="row">
         <div class="col-xs-10 col-xs-offset-1">
-            <h3>{{ action }}{% trans %} un article{% endtrans %}</h3>
+            <h3>{{ action }} {% trans %}un article{% endtrans %}</h3>
             {# configured directy in config/packages/twig.yaml #}
             {#{% form_theme form 'bootstrap_3_layout.html.twig' %}#}
             {#{{ form(form) }}#}

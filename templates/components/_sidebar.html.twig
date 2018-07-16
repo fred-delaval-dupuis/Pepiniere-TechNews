@@ -8,6 +8,12 @@
         <h4 class="text-center">
             {% if is_granted('ROLE_ADMIN') %}
                 {% trans from 'roles' %}role.admin{% endtrans %}
+            {% elseif is_granted('ROLE_PUBLISHER') %}
+                {% trans from 'roles' %}role.publisher{% endtrans %}
+            {% elseif is_granted('ROLE_EDITOR') %}
+                {% trans from 'roles' %}role.editor{% endtrans %}
+            {% elseif is_granted('ROLE_CORRECTOR') %}
+                {% trans from 'roles' %}role.corrector{% endtrans %}
             {% elseif is_granted('ROLE_AUTHOR') %}
                 {% trans from 'roles' %}role.author{% endtrans %}
             {% else %}
@@ -15,16 +21,54 @@
             {% endif %}
         </h4>
         <ul class="list-group">
+
             {% if is_granted('ROLE_AUTHOR') %}
                 <li class="list-group-item">
-                    <a href="{{ path('article_add') }}">{{ 'sidebar.btn.write' | trans }}</a>
+                    <a href="{{ path('article_add.' ~ app.request.locale) }}">{{ 'sidebar.btn.write' | trans }}</a>
                 </li>
                 {% if article is defined and article and app.user.id == article.author.id %}
                     <li class="list-group-item">
-                        <a href="{{ path('article_edit', {id: article.id}) }}">{{ 'sidebar.btn.edit' | trans }}</a>
+                        <a href="{{ path('article_edit.' ~ app.request.locale, {id: article.id}) }}">{{ 'sidebar.btn.edit' | trans }}</a>
                     </li>
                 {% endif %}
+
+                <li class="list-group-item">
+                    <a href="{{ path('article_published.' ~ app.request.locale) }}">{{ 'sidebar.article.published' | trans }}</a>
+                    <span class="badge">{{ publishedArticles() }}</span>
+                </li>
+
+                <li class="list-group-item">
+                    <a href="{{ path('article_pending.'  ~ app.request.locale) }}">{{ 'sidebar.article.pending' | trans }}</a>
+                    <span class="badge">{{ pendingArticles() }}</span>
+                </li>
+
             {% endif %}
+
+            {% if is_granted('ROLE_EDITOR') %}
+                <li class="list-group-item">
+                    <a href="{{ path('article_approval.' ~ app.request.locale) }}">{{ 'sidebar.article.approval' | trans }}</a>
+                    <span class="badge">{{ approvalArticles() }}</span>
+                </li>
+            {% endif %}
+
+            {% if is_granted('ROLE_CORRECTOR') %}
+                <li class="list-group-item">
+                    <a href="{{ path('article_corrector.' ~ app.request.locale) }}">{{ 'sidebar.article.corrector' | trans }}</a>
+                    <span class="badge">{{ correctorArticles() }}</span>
+                </li>
+            {% endif %}
+
+            {% if is_granted('ROLE_PUBLISHER') %}
+                <li class="list-group-item">
+                    <a href="{{ path('article_publisher.' ~ app.request.locale) }}">{{ 'sidebar.article.publisher' | trans }}</a>
+                    <span class="badge">{{ publisherArticles() }}</span>
+                </li>
+            {% endif %}
+
+            <li class="list-group-item">
+                <a href="{{ path('security_logout') }}">{{ 'logout' | trans }}</a>
+            </li>
+
         </ul>
     {% endif %}
 

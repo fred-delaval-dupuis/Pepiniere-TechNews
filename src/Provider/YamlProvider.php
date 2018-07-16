@@ -80,7 +80,7 @@ class YamlProvider extends AbstractProvider
         foreach ($articles as $article) {
             $found = true;
             foreach ($criteria as $criterion => $value) {
-                dump([$criterion => $value]);
+//                dump([$criterion => $value]);
                 if ( ! $found) break;
                 /* @var $article Article */
                 $method = 'get' . camel_case($criterion);

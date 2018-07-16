@@ -9,9 +9,12 @@
 namespace App\Service\Twig;
 
 
+use App\Entity\Article;
 use App\Entity\Category;
+use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Twig\Extension\AbstractExtension;
 
 class AppExtension extends AbstractExtension
@@ -22,14 +25,24 @@ class AppExtension extends AbstractExtension
     private $em;
 
     /**
+     * @var User
+     */
+    private $user;
+
+    /**
      * AppExtension constructor.
      * @param EntityManagerInterface $em
+     * @param TokenStorageInterface $tokenStorage
      * @param SessionInterface $session
      */
-    public function __construct(EntityManagerInterface $em, SessionInterface $session)
+    public function __construct(EntityManagerInterface $em, TokenStorageInterface $tokenStorage, SessionInterface $session)
     {
         $this->session = $session;
         $this->em = $em;
+
+        if ($tokenStorage->getToken()) {
+            $this->user = $tokenStorage->getToken()->getUser();
+        }
     }
 
     public function getFunctions()
@@ -43,6 +56,21 @@ class AppExtension extends AbstractExtension
             }),
             new \Twig_Function('getLocales', function() {
 
+            }),
+            new \Twig_Function('pendingArticles', function() {
+                return $this->em->getRepository(Article::class)->countAuthorArticlesByStatus($this->user->getId(), 'review');
+            }),
+            new \Twig_Function('publishedArticles', function() {
+                return $this->em->getRepository(Article::class)->countAuthorArticlesByStatus($this->user->getId(), 'published');
+            }),
+            new \Twig_Function('approvalArticles', function() {
+                return $this->em->getRepository(Article::class)->countArticlesByStatus('editor');
+            }),
+            new \Twig_Function('correctorArticles', function() {
+                return $this->em->getRepository(Article::class)->countArticlesByStatus('corrector');
+            }),
+            new \Twig_Function('publisherArticles', function() {
+                return $this->em->getRepository(Article::class)->countArticlesByStatus('publisher');
             }),
         ];
     }

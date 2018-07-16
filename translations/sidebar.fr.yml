@@ -9,3 +9,11 @@ sidebar.newsletter.email.placeholder: E-mail...
 sidebar.newsletter.btn: 'Je m''inscris'
 sidebar.connect.follow: SUIVEZ-NOUS
 sidebar.special.title: 'EN AVANT'
+sidebar:
+  article:
+    published: 'Mes Articles Publiés'
+    pending: 'Mes Articles en Attente'
+    approval: "En attente d'Approbation"
+    corrector: 'En attente de Correction'
+    publisher: 'En attente de publication'
+logout: 'Déconnexion'

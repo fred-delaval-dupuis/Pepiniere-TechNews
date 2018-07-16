@@ -71,6 +71,11 @@ class ArticleRequest
     private $slug;
 
     /**
+     * @var array
+     */
+    private $status;
+
+    /**
      * ArticleRequest constructor.
      * @param $author
      */
@@ -242,6 +247,24 @@ class ArticleRequest
         return $this;
     }
 
+    /**
+     * @return array
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /**
+     * @param array $status
+     * @return ArticleRequest
+     */
+    public function setStatus(array $status): ArticleRequest
+    {
+        $this->status = $status;
+        return $this;
+    }
+
     public function updateArticle(Article $article)
     {
         $article->setTitle($this->getTitle());
@@ -249,6 +272,7 @@ class ArticleRequest
         $article->setCategory($this->getCategory());
         $article->setSpotlight($this->getSpotlight());
         $article->setSpecial($this->getSpecial());
+        $article->setStatus($this->getStatus());
     }
 
 }
