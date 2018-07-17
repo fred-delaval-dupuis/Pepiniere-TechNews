@@ -71,3 +71,7 @@ services:
                 template: 'collector/collector.html.twig'
                 id:       'app.provider_collector'
         public: false
+
+    App\Command\UserManagerCommand:
+        arguments:
+            $roles: '%security.role_hierarchy.roles%'
