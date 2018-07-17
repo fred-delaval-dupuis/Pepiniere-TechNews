@@ -83,20 +83,24 @@ class UserManagerCommand extends Command
 
 //        $this->io->choice('Quelle est la couleur du cheval blanc de Henri IV ?', ['bleu', 'vert', 'blanc'], 'bleu');
 
-        $action = $this->io->choice('Que souhaitez-vous faire ?', ['Afficher la liste des utilisateurs', 'Ajouter un Rôle à un utilisateur', 'Supprimer un rôle à un utilisateur'], 'Afficher la liste des utilisateurs');
+        while (true) {
+            $action = $this->io->choice('Que souhaitez-vous faire ?', ['Afficher la liste des utilisateurs', 'Ajouter un Rôle à un utilisateur', 'Supprimer un rôle à un utilisateur', 'Quitter'], 'Afficher la liste des utilisateurs');
 
-        switch ($action) {
-            case 'Afficher la liste des utilisateurs':
-                $this->listUsers();
-                break;
-            case 'Ajouter un Rôle à un utilisateur':
-                $this->addUserRole();
-                break;
-            case 'Supprimer un rôle à un utilisateur':
-                $this->deleteUserRole();
-                break;
-            default:
+            switch ($action) {
+                case 'Afficher la liste des utilisateurs':
+                    $this->listUsers();
+                    break;
+                case 'Ajouter un Rôle à un utilisateur':
+                    $this->addUserRole();
+                    break;
+                case 'Supprimer un rôle à un utilisateur':
+                    $this->deleteUserRole();
+                    break;
+                default:
+                    exit;
+            }
         }
+
     }
 
     private function listUsers()
