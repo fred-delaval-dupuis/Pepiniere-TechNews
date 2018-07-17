@@ -68,7 +68,7 @@ class DoctrineProvider extends AbstractProvider
     /**
      * @inheritDoc
      */
-    public function count()
+    public function count(): int
     {
         return $this->em->getRepository(Article::class)->findTotalArticles();
     }

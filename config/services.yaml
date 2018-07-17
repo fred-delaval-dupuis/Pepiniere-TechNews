@@ -63,3 +63,11 @@ services:
 
       # circular reference : App\Article\ArticlesRepositoryInterface => App\Provider\DoctrineProvider => App\Article\ArticlesRepositoryInterface => ...
 #    App\Article\ArticlesRepositoryInterface: '@App\Article\ArticlesRepository'
+
+    App\DataCollector\ArticleProviderCollector:
+        tags:
+            -
+                name:     data_collector
+                template: 'collector/collector.html.twig'
+                id:       'app.provider_collector'
+        public: false

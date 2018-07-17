@@ -20,5 +20,5 @@ interface ArticlesRepositoryInterface extends \Countable
     public function findSpecialArticles(): array;
     public function findSpotlightArticles(): array;
     public function findArticlesSuggestions($articleId, $categoryId): array;
-
+    public function count(): int;
 }

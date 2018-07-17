@@ -30,7 +30,7 @@ abstract class AbstractArticlesRepository implements ArticlesRepositoryInterface
     /**
      * @return ProviderInterface[]
      */
-    public function getProviders(): array
+    public function getProviders()
     {
         return $this->providers;
     }
@@ -65,7 +65,7 @@ abstract class AbstractArticlesRepository implements ArticlesRepositoryInterface
     /**
      * @inheritDoc
      */
-    public function count()
+    public function count(): int
     {
         return count($this->providers);
     }

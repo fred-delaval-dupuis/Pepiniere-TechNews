@@ -173,4 +173,14 @@ class YamlProvider extends AbstractProvider
             return $dateA <=> $dateB;
         });
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function count(): int
+    {
+        return count($this->articles);
+    }
+
+
 }
