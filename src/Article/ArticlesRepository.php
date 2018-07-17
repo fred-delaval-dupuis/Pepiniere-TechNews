@@ -10,6 +10,7 @@ namespace App\Article;
 
 
 use App\Entity\Article;
+use App\Provider\ProviderInterface;
 
 class ArticlesRepository extends AbstractArticlesRepository
 {
@@ -159,5 +160,19 @@ class ArticlesRepository extends AbstractArticlesRepository
         }
 
         return $articles;
+    }
+
+    public function getStats()
+    {
+        $stats = [];
+
+        $stats[get_class($this)] = $this->count();
+
+        /* @var ProviderInterface $provider */
+        foreach ($this->getProviders() as $provider) {
+            $stats[get_class($provider)] = $provider->count();
+        }
+
+        return $stats;
     }
 }

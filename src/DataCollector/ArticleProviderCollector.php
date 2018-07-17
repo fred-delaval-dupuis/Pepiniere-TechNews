@@ -37,18 +37,7 @@ class ArticleProviderCollector extends DataCollector
      */
     public function collect(Request $request, Response $response, \Exception $exception = null)
     {
-        $tempProviders = $this->articlesRepo->getProviders();
-        foreach ($tempProviders as $provider) {
-            $providers[get_class($provider)] = $provider;
-        }
-        $doctrineProvider = $providers[DoctrineProvider::class];
-        $yamlProvider = $providers[YamlProvider::class];
-
-        $this->data = [
-            'providers_count' => $this->articlesRepo->count(),
-            'doctrine_provider' => $doctrineProvider->count(),
-            'yaml_provider' => $yamlProvider->count(),
-        ];
+        $this->data = $this->articlesRepo->getStats();
     }
 
     /**
@@ -69,16 +58,21 @@ class ArticleProviderCollector extends DataCollector
 
     public function getProvidersCount()
     {
-        return $this->data['providers_count'];
+        return $this->data[ArticlesRepository::class];
     }
 
     public function getDoctrineProvider()
     {
-        return $this->data['doctrine_provider'];
+        return $this->data[DoctrineProvider::class];
     }
 
     public function getYamlProvider()
     {
-        return $this->data['yaml_provider'];
+        return $this->data[YamlProvider::class];
+    }
+
+    public function getData()
+    {
+        return $this->data;
     }
 }
