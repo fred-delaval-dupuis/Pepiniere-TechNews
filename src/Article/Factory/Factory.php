@@ -8,8 +8,6 @@
 
 namespace App\Article\Factory;
 
-
 class Factory extends AbstractFactory
 {
-
 }

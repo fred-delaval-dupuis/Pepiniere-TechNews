@@ -34,5 +34,4 @@ class Category extends Fixture implements OrderedFixtureInterface
     {
         return 1;
     }
-
 }

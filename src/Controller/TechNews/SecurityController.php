@@ -8,7 +8,6 @@
 
 namespace App\Controller\TechNews;
 
-
 use App\Form\LoginType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -51,5 +50,4 @@ class SecurityController extends Controller
             'error' => $error,
         ]);
     }
-
 }

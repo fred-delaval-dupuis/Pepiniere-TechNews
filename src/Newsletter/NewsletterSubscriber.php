@@ -8,7 +8,6 @@
 
 namespace App\Newsletter;
 
-
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
@@ -30,7 +29,7 @@ class NewsletterSubscriber implements EventSubscriberInterface
 
     public function onKernelRequest(GetResponseEvent $event)
     {
-        if ( ! $event->isMasterRequest() || $event->getRequest()->isXmlHttpRequest()) {
+        if (! $event->isMasterRequest() || $event->getRequest()->isXmlHttpRequest()) {
             return;
         }
 
@@ -45,7 +44,7 @@ class NewsletterSubscriber implements EventSubscriberInterface
 
     public function onKernelResponse(FilterResponseEvent $event)
     {
-        if ( ! $event->isMasterRequest() || $event->getRequest()->isXmlHttpRequest()) {
+        if (! $event->isMasterRequest() || $event->getRequest()->isXmlHttpRequest()) {
             return;
         }
 
@@ -54,5 +53,4 @@ class NewsletterSubscriber implements EventSubscriberInterface
             $session->set('showModal', false);
         }
     }
-
 }

@@ -8,7 +8,6 @@
 
 namespace App\Controller;
 
-
 use Behat\Transliterator\Transliterator;
 
 trait HelperTrait

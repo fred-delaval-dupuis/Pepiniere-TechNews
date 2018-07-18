@@ -8,7 +8,6 @@
 
 namespace App\Service\Twig;
 
-
 use App\Entity\Article;
 use App\Entity\Category;
 use App\Entity\User;
@@ -48,28 +47,27 @@ class AppExtension extends AbstractExtension
     public function getFunctions()
     {
         return [
-            new \Twig_Function('getCategories', function() {
+            new \Twig_Function('getCategories', function () {
                 return $this->em->getRepository(Category::class)->findCategoriesHavingArticles();
             }),
-            new \Twig_Function('isUserInvited', function() {
+            new \Twig_Function('isUserInvited', function () {
                 return $this->session->get('showModal');
             }),
-            new \Twig_Function('getLocales', function() {
-
+            new \Twig_Function('getLocales', function () {
             }),
-            new \Twig_Function('pendingArticles', function() {
+            new \Twig_Function('pendingArticles', function () {
                 return $this->em->getRepository(Article::class)->countAuthorArticlesByStatus($this->user->getId(), 'review');
             }),
-            new \Twig_Function('publishedArticles', function() {
+            new \Twig_Function('publishedArticles', function () {
                 return $this->em->getRepository(Article::class)->countAuthorArticlesByStatus($this->user->getId(), 'published');
             }),
-            new \Twig_Function('approvalArticles', function() {
+            new \Twig_Function('approvalArticles', function () {
                 return $this->em->getRepository(Article::class)->countArticlesByStatus('editor');
             }),
-            new \Twig_Function('correctorArticles', function() {
+            new \Twig_Function('correctorArticles', function () {
                 return $this->em->getRepository(Article::class)->countArticlesByStatus('corrector');
             }),
-            new \Twig_Function('publisherArticles', function() {
+            new \Twig_Function('publisherArticles', function () {
                 return $this->em->getRepository(Article::class)->countArticlesByStatus('publisher');
             }),
         ];
@@ -80,17 +78,15 @@ class AppExtension extends AbstractExtension
         return [
             new \Twig_Filter(
                 'summary',
-                function($str) {
+                function ($str) {
                     $str = strip_tags($str);
                     if (strlen($str) > self::MAX_LENGTH) {
-                        $str =  substr($str,0, strrpos(substr($str,0,self::MAX_LENGTH), ' ')) . '...';
+                        $str =  substr($str, 0, strrpos(substr($str, 0, self::MAX_LENGTH), ' ')) . '...';
                     }
                     return $str;
-
                 },
                 array('is_safe' => array('html'))
             )
         ];
     }
-
 }

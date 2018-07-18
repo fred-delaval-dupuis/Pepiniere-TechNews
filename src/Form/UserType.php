@@ -20,16 +20,16 @@ class UserType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('firstName',  TextType::class,        ['label' => 'form.user.firstname', 'attr' => ['placeholder' => 'form.user.placeholder.firstname']])
-            ->add('lastName',   TextType::class,        ['label' => 'form.user.lastname', 'attr' => ['placeholder' => 'form.user.placeholder.lastname']])
-            ->add('email',      EmailType::class,       ['attr' => ['placeholder' => 'form.user.placeholder.email']])
-            ->add('password',   PasswordType::class,    ['label' => 'form.user.password', 'attr' => ['placeholder' => 'form.user.placeholder.password']])
-            ->add('cgu',        CheckboxType::class,    [
+            ->add('firstName', TextType::class, ['label' => 'form.user.firstname', 'attr' => ['placeholder' => 'form.user.placeholder.firstname']])
+            ->add('lastName', TextType::class, ['label' => 'form.user.lastname', 'attr' => ['placeholder' => 'form.user.placeholder.lastname']])
+            ->add('email', EmailType::class, ['attr' => ['placeholder' => 'form.user.placeholder.email']])
+            ->add('password', PasswordType::class, ['label' => 'form.user.password', 'attr' => ['placeholder' => 'form.user.placeholder.password']])
+            ->add('cgu', CheckboxType::class, [
                 'mapped'        => false,
                 'constraints'   => [ new IsTrue() ],
                 'label'         => 'form.user.cgu.label',
             ])
-            ->add('submit',     SubmitType::class,      ['label' => 'form.user.submit'])
+            ->add('submit', SubmitType::class, ['label' => 'form.user.submit'])
         ;
     }
 

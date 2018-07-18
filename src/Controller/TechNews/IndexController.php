@@ -8,7 +8,6 @@
 
 namespace App\Controller\TechNews;
 
-
 use App\Article\ArticlesRepository;
 use App\Entity\Article;
 use App\Entity\Category;

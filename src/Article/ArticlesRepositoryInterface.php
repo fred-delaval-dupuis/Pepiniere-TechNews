@@ -8,7 +8,6 @@
 
 namespace App\Article;
 
-
 use App\Entity\Article;
 
 interface ArticlesRepositoryInterface extends \Countable

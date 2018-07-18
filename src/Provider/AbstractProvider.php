@@ -74,6 +74,4 @@ abstract class AbstractProvider implements ProviderInterface
     {
         return $this->repository->count();
     }
-
-
 }

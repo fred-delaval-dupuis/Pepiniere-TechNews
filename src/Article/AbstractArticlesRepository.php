@@ -8,7 +8,6 @@
 
 namespace App\Article;
 
-
 use App\Provider\ProviderInterface;
 
 abstract class AbstractArticlesRepository implements ArticlesRepositoryInterface
@@ -36,7 +35,7 @@ abstract class AbstractArticlesRepository implements ArticlesRepositoryInterface
     }
 
     /**
-     * @param ProviderInterface[] $providers
+     * @param iterable $providers
      * @return AbstractArticlesRepository
      */
     public function setProviders(iterable $providers): AbstractArticlesRepository
@@ -69,6 +68,4 @@ abstract class AbstractArticlesRepository implements ArticlesRepositoryInterface
     {
         return count($this->providers);
     }
-
-
 }

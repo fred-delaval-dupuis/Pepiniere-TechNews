@@ -81,7 +81,9 @@ class YamlProvider extends AbstractProvider
             $found = true;
             foreach ($criteria as $criterion => $value) {
 //                dump([$criterion => $value]);
-                if ( ! $found) break;
+                if (! $found) {
+                    break;
+                }
                 /* @var $article Article */
                 $method = 'get' . camel_case($criterion);
                 if (method_exists($article, $method)) {
@@ -167,7 +169,7 @@ class YamlProvider extends AbstractProvider
 
     private function sortDate(array &$articles)
     {
-        usort($articles, function($a, $b) {
+        usort($articles, function ($a, $b) {
             $dateA = \DateTime::createFromFormat('Y-m-d H:i:s', $a['datecreation']);
             $dateB = \DateTime::createFromFormat('Y-m-d H:i:s', $b['datecreation']);
             return $dateA <=> $dateB;
@@ -181,6 +183,4 @@ class YamlProvider extends AbstractProvider
     {
         return count($this->articles);
     }
-
-
 }

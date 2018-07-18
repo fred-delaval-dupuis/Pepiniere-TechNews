@@ -8,7 +8,6 @@
 
 namespace App\Category;
 
-
 use Doctrine\ORM\EntityManagerInterface;
 
 class CategoryRequestHandler

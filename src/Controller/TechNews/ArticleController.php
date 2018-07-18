@@ -143,7 +143,7 @@ class ArticleController extends Controller
 //        dump($form);
 
         if ($form->isSubmitted() && $form->isValid()) {
-             $handler->handle($articleRequest, $article);
+            $handler->handle($articleRequest, $article);
 
             return $this->redirectToRoute('index_article', ['category' => $article->getCategory()->getSlug(), 'slug' => $article->getSlug(), 'id' => $article->getId()]);
         }

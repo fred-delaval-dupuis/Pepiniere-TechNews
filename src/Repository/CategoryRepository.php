@@ -31,10 +31,9 @@ class CategoryRepository extends ServiceEntityRepository
 
         try {
             return $qb->getQuery()->getSingleResult();
-        } catch(\Exception $e) {
+        } catch (\Exception $e) {
             return $category;
         }
-
     }
 
     public function findCategoriesHavingArticles()
@@ -46,5 +45,4 @@ class CategoryRepository extends ServiceEntityRepository
 
         return $qb->getQuery()->getResult();
     }
-
 }

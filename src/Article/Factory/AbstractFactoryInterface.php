@@ -8,10 +8,9 @@
 
 namespace App\Article\Factory;
 
-
 use App\Entity\Article;
 
-Interface AbstractFactoryInterface
+interface AbstractFactoryInterface
 {
     public function createArticle($args): ?Article;
     public function createArticles($articles): iterable;

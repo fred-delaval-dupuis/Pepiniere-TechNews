@@ -10,7 +10,6 @@ class Article extends Fixture implements OrderedFixtureInterface
 {
     public function load(ObjectManager $manager)
     {
-
         $articles = [
             [
                 'title'         => 'Tip Aligning Digital Marketing with Business Goals and Objectives',
@@ -89,6 +88,4 @@ class Article extends Fixture implements OrderedFixtureInterface
     {
         return 3;
     }
-
-
 }

@@ -327,5 +327,4 @@ class User implements UserInterface, EquatableInterface
         $this->locale = $locale;
         return $this;
     }
-
 }

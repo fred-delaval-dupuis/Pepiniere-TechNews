@@ -8,7 +8,6 @@
 
 namespace App\User;
 
-
 final class UserEvents
 {
     public const USER_CREATED = 'user.created';

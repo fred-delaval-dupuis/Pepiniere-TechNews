@@ -87,8 +87,7 @@ class UserRequest
         \DateTime $registrationDate = null,
         array $roles = ['ROLE_USER'],
         string $locale = null
-    )
-    {
+    ) {
         $this->firstName = $firstName;
         $this->lastName = $lastName;
         $this->email = $email;
@@ -232,5 +231,4 @@ class UserRequest
         $this->locale = $locale;
         return $this;
     }
-    
 }

@@ -8,7 +8,6 @@
 
 namespace App\Controller\TechNews;
 
-
 use App\Entity\Newsletter;
 use App\Form\NewsletterType;
 use Psr\Log\LoggerInterface;
@@ -31,14 +30,13 @@ class NewsletterController extends Controller
     {
         $newsletter = new Newsletter();
 
-/*        if ($request->isXmlHttpRequest()) {
-            return new Response('is xmlHttpRequest', 200);
-        } else {
-            return new Response('is NOT xmlHttpRequest', 200);
-        }*/
+        /*        if ($request->isXmlHttpRequest()) {
+                    return new Response('is xmlHttpRequest', 200);
+                } else {
+                    return new Response('is NOT xmlHttpRequest', 200);
+                }*/
 
         if ($request->isXmlHttpRequest()) {
-
             $logger->log('debug', $request->get('email'));
 
             $email = filter_var($request->get('email'), FILTER_VALIDATE_EMAIL);
@@ -60,6 +58,5 @@ class NewsletterController extends Controller
                 'form' => $form->createView(),
             ]);
         }
-
     }
 }

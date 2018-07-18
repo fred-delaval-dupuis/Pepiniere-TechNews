@@ -8,7 +8,6 @@
 
 namespace App\User;
 
-
 use App\Entity\User;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;

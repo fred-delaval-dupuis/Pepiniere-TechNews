@@ -29,13 +29,13 @@ class ArticleType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('title',          TextType::class,        ['label' => 'Titre'])
-            ->add('content',        CKEditorType::class,    ['label' => 'Contenu'])
-            ->add('category',       EntityType::class,      ['label' => 'Categorie', 'class' => Category::class, 'choice_label' => 'title'])
-            ->add('featuredImage',  FileType::class,        ['label' => 'Image', 'data_class' => null, 'attr' => ['class' => 'dropify', 'data-default-file' => $options['image_url']]])
-            ->add('special',        CheckboxType::class,    ['label' => 'Mis en avant ?', 'required' => false, 'attr' => ['data-toggle' => 'toggle', 'data-on' => 'Oui', 'data-off' => 'Non']])
-            ->add('spotlight',      CheckboxType::class,    ['label' => 'Spotlight ?', 'required' => false, 'attr' => ['data-toggle' => 'toggle', 'data-on' => 'Oui', 'data-off' => 'Non']])
-            ->add('submit',         SubmitType::class,      ['label' => 'Publier'])
+            ->add('title', TextType::class, ['label' => 'Titre'])
+            ->add('content', CKEditorType::class, ['label' => 'Contenu'])
+            ->add('category', EntityType::class, ['label' => 'Categorie', 'class' => Category::class, 'choice_label' => 'title'])
+            ->add('featuredImage', FileType::class, ['label' => 'Image', 'data_class' => null, 'attr' => ['class' => 'dropify', 'data-default-file' => $options['image_url']]])
+            ->add('special', CheckboxType::class, ['label' => 'Mis en avant ?', 'required' => false, 'attr' => ['data-toggle' => 'toggle', 'data-on' => 'Oui', 'data-off' => 'Non']])
+            ->add('spotlight', CheckboxType::class, ['label' => 'Spotlight ?', 'required' => false, 'attr' => ['data-toggle' => 'toggle', 'data-on' => 'Oui', 'data-off' => 'Non']])
+            ->add('submit', SubmitType::class, ['label' => 'Publier'])
         ;
     }
 

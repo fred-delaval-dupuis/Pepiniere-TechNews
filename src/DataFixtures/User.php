@@ -11,9 +11,9 @@ class User extends Fixture implements OrderedFixtureInterface
     public function load(ObjectManager $manager)
     {
         $users = [
-            ['Hugo', 'LIEGEARD', 'wf3@hl-media.fr', 'test', '2018-06-26 14:33:08', NULL, ['ROLE_USER']],
-            ['PEREZ', 'Sylviane', 'sylviane.perez@wf3.fr', 'test', '2018-06-26 14:33:08', NULL, ['ROLE_USER']],
-            ['Delaval-Dupuis', 'Frédéric', 'test@test.xyz', 'test', '2018-06-26 14:33:08', NULL, ['ROLE_AUTHOR']]
+            ['Hugo', 'LIEGEARD', 'wf3@hl-media.fr', 'test', '2018-06-26 14:33:08', null, ['ROLE_USER']],
+            ['PEREZ', 'Sylviane', 'sylviane.perez@wf3.fr', 'test', '2018-06-26 14:33:08', null, ['ROLE_USER']],
+            ['Delaval-Dupuis', 'Frédéric', 'test@test.xyz', 'test', '2018-06-26 14:33:08', null, ['ROLE_AUTHOR']]
         ];
 
         $i = 1;
@@ -39,6 +39,4 @@ class User extends Fixture implements OrderedFixtureInterface
     {
         return 2;
     }
-
-
 }

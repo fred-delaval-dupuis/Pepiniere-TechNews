@@ -8,7 +8,6 @@
 
 namespace App\User;
 
-
 use App\Entity\Newsletter;
 use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
@@ -64,12 +63,10 @@ class UserSubscriber implements EventSubscriberInterface
             $this->em->flush();
 
             // Setting the locale
-            if(null !== $user->getLocale()) {
+            if (null !== $user->getLocale()) {
                 $this->session->set('_locale', $user->getLocale());
             }
-
         }
-
     }
 
     public function onCreatedUser(UserEvent $event)
@@ -90,7 +87,5 @@ class UserSubscriber implements EventSubscriberInterface
         if (null !== $this->session->get('_locale')) {
             $request->setLocale($this->session->get('_locale'));
         }
-
     }
-
 }

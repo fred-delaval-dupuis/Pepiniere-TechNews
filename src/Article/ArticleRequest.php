@@ -30,7 +30,11 @@ class ArticleRequest
     private $content;
 
     /**
-     * @Assert\Image(maxSize="2M", maxSizeMessage="Le poids de l'image ne doit pas dépasser {{ limit }}", mimeTypesMessage="L'image n'a pas une extension valide")
+     * @Assert\Image(
+     *     maxSize="2M",
+     *     maxSizeMessage="Le poids de l'image ne doit pas dépasser {{ limit }}",
+     *     mimeTypesMessage="L'image n'a pas une extension valide"
+     * )
      *
      * @var mixed
      */
@@ -274,5 +278,4 @@ class ArticleRequest
         $article->setSpecial($this->getSpecial());
         $article->setStatus($this->getStatus());
     }
-
 }

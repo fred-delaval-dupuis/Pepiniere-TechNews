@@ -8,7 +8,6 @@
 
 namespace App\User;
 
-
 use App\Entity\User;
 use Symfony\Component\EventDispatcher\Event;
 
@@ -35,5 +34,4 @@ class UserEvent extends Event
     {
         return $this->user;
     }
-
 }

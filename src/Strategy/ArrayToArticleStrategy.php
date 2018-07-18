@@ -8,7 +8,6 @@
 
 namespace App\Strategy;
 
-
 use App\Controller\HelperTrait;
 use App\Entity\Article;
 use App\Entity\Category;
@@ -29,12 +28,12 @@ class ArrayToArticleStrategy implements StrategyInterface
                 $args['spotlight'],
                 (new \DateTime)->setTimestamp($args['datecreation']),
                 new Category($args['category']['id'], $args['category']['title'], $this->slugify($args['category']['title'])),
-                new User($args['author']['id'], $args['author']['firstname'], $args['author']['lastname'],$args['author']['email']),
+                new User($args['author']['id'], $args['author']['firstname'], $args['author']['lastname'], $args['author']['email']),
                 $this->slugify($args['title'])
             );
             $article->setId($args['id']);
             return $article;
-        } catch(\Exception $e) {
+        } catch (\Exception $e) {
             dump($e);
             return null;
         }
@@ -48,11 +47,8 @@ class ArrayToArticleStrategy implements StrategyInterface
                 $result[] = $this->createArticle($article);
             }
             return $result;
-        } catch(\Exception $e) {
+        } catch (\Exception $e) {
             return [];
         }
-
     }
-
-
 }

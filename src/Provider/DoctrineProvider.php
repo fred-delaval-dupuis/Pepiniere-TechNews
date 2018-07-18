@@ -8,7 +8,6 @@
 
 namespace App\Provider;
 
-
 use App\Article\ArticlesRepositoryInterface;
 use App\Article\Factory\AbstractFactoryInterface;
 use App\Entity\Article;
@@ -72,6 +71,4 @@ class DoctrineProvider extends AbstractProvider
     {
         return $this->em->getRepository(Article::class)->findTotalArticles();
     }
-
-
 }

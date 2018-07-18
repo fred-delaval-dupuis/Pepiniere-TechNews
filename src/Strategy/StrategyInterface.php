@@ -10,7 +10,7 @@ namespace App\Strategy;
 
 use App\Entity\Article;
 
-Interface StrategyInterface
+interface StrategyInterface
 {
     public function createArticle($args): ?Article;
     public function createArticles($articles): iterable;

@@ -8,7 +8,6 @@
 
 namespace App\Service\Article\Warmer;
 
-
 use Symfony\Component\HttpKernel\CacheWarmer\CacheWarmer;
 use Symfony\Component\Yaml\Exception\ParseException;
 use Symfony\Component\Yaml\Yaml;
@@ -36,5 +35,4 @@ class YamlCacheWarmer extends CacheWarmer
             printf('Unable to parse the YAML string: %s', $exception->getMessage());
         }
     }
-
 }

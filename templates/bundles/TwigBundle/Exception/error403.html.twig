@@ -1,0 +1,14 @@
+{% extends 'layout.html.twig' %}
+
+{% block page_title %}
+    Accès refusé
+{% endblock %}
+
+
+{% block content %}
+    <div class="page-404">
+        <h1>Accès Refusé</h1>
+        <p>Vos droits ne sont pas suffisants !</p>
+        <a href="{{ url('index') }}" class="my-btn btn-go-home">RETOURNER VERS L'ACCUEIL</a>
+    </div>
+{% endblock %}

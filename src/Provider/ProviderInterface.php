@@ -8,10 +8,9 @@
 
 namespace App\Provider;
 
-
 use App\Article\ArticlesRepositoryInterface;
 
-Interface ProviderInterface extends ArticlesRepositoryInterface
+interface ProviderInterface extends ArticlesRepositoryInterface
 {
     public function getArticlesRepository(): ArticlesRepositoryInterface;
     public function setArticlesRepository(ArticlesRepositoryInterface $repository);

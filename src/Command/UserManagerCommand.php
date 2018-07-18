@@ -8,7 +8,6 @@
 
 namespace App\Command;
 
-
 use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Command\Command;
@@ -84,7 +83,16 @@ class UserManagerCommand extends Command
 //        $this->io->choice('Quelle est la couleur du cheval blanc de Henri IV ?', ['bleu', 'vert', 'blanc'], 'bleu');
 
         while (true) {
-            $action = $this->io->choice('Que souhaitez-vous faire ?', ['Afficher la liste des utilisateurs', 'Ajouter un Rôle à un utilisateur', 'Supprimer un rôle à un utilisateur', 'Quitter'], 'Afficher la liste des utilisateurs');
+            $action = $this->io->choice(
+                'Que souhaitez-vous faire ?',
+                [
+                    'Afficher la liste des utilisateurs',
+                    'Ajouter un Rôle à un utilisateur',
+                    'Supprimer un rôle à un utilisateur',
+                    'Quitter'
+                ],
+                'Afficher la liste des utilisateurs'
+            );
 
             switch ($action) {
                 case 'Afficher la liste des utilisateurs':
@@ -100,7 +108,6 @@ class UserManagerCommand extends Command
                     exit;
             }
         }
-
     }
 
     private function listUsers()
@@ -136,8 +143,7 @@ class UserManagerCommand extends Command
         $role = $this->io->choice('Rôle de l\'utilisateur', array_diff(array_reverse(array_keys($this->roles)), $user->getRoles()));
 
         if (null !== $user) {
-            if ( ! in_array($role, $user->getRoles(), true)) {
-
+            if (! in_array($role, $user->getRoles(), true)) {
                 $confirm = $this->io->confirm('Etes-vous sûr(e) de vouloir ajouter le rôle ' . $role . ' à l\'utilisateur ' . $user->getFirstName() . ' ' . $user->getLastName(), false);
 
                 if ($confirm) {
@@ -145,7 +151,6 @@ class UserManagerCommand extends Command
                     $this->em->flush();
                     $this->io->success('Le rôle ' . $role . ' a bien été attribué à l\'utilisateur ' . $user->getFirstName() . ' ' . $user->getLastName());
                 }
-
             } else {
                 $this->io->error('L\'utilisateur ' . $user->getFirstName() . ' ' . $user->getLastName() . ' possède déjà le rôle ' . $role);
             }
@@ -163,7 +168,7 @@ class UserManagerCommand extends Command
 
         if (null !== $user) {
             $role = $this->io->choice('Rôle de l\'utilisateur à supprimer', $user->getRoles(), $user->getRoles()[0]);
-            if ( ! in_array($role, $user->getRoles())) {
+            if (! in_array($role, $user->getRoles())) {
                 $this->io->error('L\'utilisateur ' . $user->getFirstName() . ' ' . $user->getLastName() . ' ne possède pas le rôle ' . $role);
             } else {
                 $confirm = $this->io->confirm('Etes-vous sûr(e) de vouloir enlever le rôle ' . $role . ' à l\'utilisateur ' . $user->getFirstName() . ' ' . $user->getLastName(), false);

@@ -8,7 +8,6 @@
 
 namespace App\Article\Factory;
 
-
 use App\Entity\Article;
 use App\Strategy\StrategyInterface;
 
@@ -55,6 +54,4 @@ abstract class AbstractFactory implements AbstractFactoryInterface
     {
         return $this->strategy->createArticles($articles);
     }
-
-
 }

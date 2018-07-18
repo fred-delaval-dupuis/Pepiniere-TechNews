@@ -8,13 +8,11 @@
 
 namespace App\Article;
 
-
 use App\Entity\Article;
 use App\Provider\ProviderInterface;
 
 class ArticlesRepository extends AbstractArticlesRepository
 {
-
     public function find(int $id): ?Article
     {
         $articles = [];
@@ -31,7 +29,6 @@ class ArticlesRepository extends AbstractArticlesRepository
         } else {
             return $this->unique($articles)[0];
         }
-
     }
 
     public function findOneBy(array $criteria): ?Article
@@ -54,11 +51,13 @@ class ArticlesRepository extends AbstractArticlesRepository
 
     public function findAll(): array
     {
-        $articles = [];
+        $articles = [[]];
 
         foreach ($this->providers as $provider) {
-            $articles = array_merge($articles, $provider->findAll());
+            $articles[] = $provider->findAll();
         }
+
+        $articles = \array_merge(...$articles);
 
         $this->dateSort($articles);
 
@@ -67,25 +66,29 @@ class ArticlesRepository extends AbstractArticlesRepository
 
     public function findLastFiveArticles(): array
     {
-        $articles = [];
+        $articles = [[]];
 
         foreach ($this->providers as $provider) {
-            $articles = array_merge($articles, $provider->findLastFiveArticles());
+            $articles[] = $provider->findLastFiveArticles();
         }
 
+        $articles = \array_merge(...$articles);
+
         $this->dateSort($articles);
-        $sliced = array_slice($articles, 0, 4);
+        $sliced = \array_slice($articles, 0, 4);
 
         return $this->unique($sliced);
     }
 
     public function findSpecialArticles(): array
     {
-        $articles = [];
+        $articles = [[]];
 
         foreach ($this->providers as $provider) {
-            $articles = array_merge($articles, $provider->findSpecialArticles());
+            $articles[] = $provider->findSpecialArticles();
         }
+
+        $articles = \array_merge(...$articles);
 
         $this->dateSort($articles);
 
@@ -94,11 +97,13 @@ class ArticlesRepository extends AbstractArticlesRepository
 
     public function findSpotlightArticles(): array
     {
-        $articles = [];
+        $articles = [[]];
 
         foreach ($this->providers as $provider) {
-            $articles = array_merge($articles, $provider->findSpotlightArticles());
+            $articles[] = $provider->findSpotlightArticles();
         }
+
+        $articles = \array_merge(...$articles);
 
         $this->dateSort($articles);
 
@@ -107,11 +112,13 @@ class ArticlesRepository extends AbstractArticlesRepository
 
     public function findArticlesSuggestions($articleId, $categoryId): array
     {
-        $articles = [];
+        $articles = [[]];
 
         foreach ($this->providers as $provider) {
-            $articles = array_merge($articles, $provider->findArticlesSuggestions($articleId, $categoryId));
+            $articles[] = $provider->findArticlesSuggestions($articleId, $categoryId);
         }
+
+        $articles = \array_merge(...$articles);
 
         $this->dateSort($articles);
 
@@ -122,11 +129,11 @@ class ArticlesRepository extends AbstractArticlesRepository
     private function dateSort(array &$articles, string $direction = 'DESC')
     {
         if ($direction === 'ASC') {
-            usort($articles, function(Article $a, Article $b) {
+            usort($articles, function (Article $a, Article $b) {
                 return $a->getCreatedAt() <=> $b->getCreatedAt();
             });
         } else {
-            usort($articles, function(Article $a, Article $b) {
+            usort($articles, function (Article $a, Article $b) {
                 return $b->getCreatedAt() <=> $a->getCreatedAt();
             });
         }
@@ -135,17 +142,18 @@ class ArticlesRepository extends AbstractArticlesRepository
     private function unique(array $articles)
     {
         $uniqueArticles = [];
+        $countArticles = \count($articles);
 
-        if (count($articles) > 1) {
+        if ($countArticles > 1) {
             $uniqueArticles[] = $articles[0];
-            for ($i = 1; $i < count($articles)-1; $i++) {
+            for ($i = 1; $i < $countArticles-1; $i++) {
                 $article = $articles[$i];
 
                 $unique = true;
 
-                for ($j = 0; $j < count($uniqueArticles); $j++) {
-
-                    if ($uniqueArticles[$j]->getId() == $article->getId()) {
+                $countUniqueArticles = \count($uniqueArticles);
+                for ($j = 0; $j < $countUniqueArticles; $j++) {
+                    if ($uniqueArticles[$j]->getId() === $article->getId()) {
                         $unique = false;
                         break;
                     }
@@ -166,11 +174,11 @@ class ArticlesRepository extends AbstractArticlesRepository
     {
         $stats = [];
 
-        $stats[get_class($this)] = $this->count();
+        $stats[\get_class($this)] = $this->count();
 
         /* @var ProviderInterface $provider */
         foreach ($this->getProviders() as $provider) {
-            $stats[get_class($provider)] = $provider->count();
+            $stats[\get_class($provider)] = $provider->count();
         }
 
         return $stats;

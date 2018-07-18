@@ -8,7 +8,6 @@
 
 namespace App\Controller\TechNews;
 
-
 use App\Form\UserType;
 use App\User\UserRequest;
 use App\User\UserRequestHandler;
@@ -40,7 +39,6 @@ class UserController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             $user = $handler->registerAsUser($userRequest);
 
 //            $this->addFlash('notice', 'Vous avez bien été enregistré.');
@@ -52,5 +50,4 @@ class UserController extends Controller
             'form' => $form->createView(),
         ]);
     }
-    
 }

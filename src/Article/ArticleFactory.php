@@ -10,10 +10,9 @@ namespace App\Article;
 
 use App\Entity\Article;
 
-
 class ArticleFactory
 {
-    public function createFromArticleRequest(ArticleRequest $articleRequest)
+    public function createFromArticleRequest(ArticleRequest $articleRequest): Article
     {
         return new Article(
             $articleRequest->getTitle(),
@@ -29,7 +28,7 @@ class ArticleFactory
         );
     }
 
-    public function createRequestFromArticle(Article $article)
+    public function createRequestFromArticle(Article $article): ArticleRequest
     {
         return (new ArticleRequest($article->getAuthor()))
             ->setTitle($article->getTitle())
@@ -43,5 +42,4 @@ class ArticleFactory
             ->setStatus($article->getStatus())
         ;
     }
-
 }

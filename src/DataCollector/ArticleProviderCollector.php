@@ -8,7 +8,6 @@
 
 namespace App\DataCollector;
 
-
 use App\Article\ArticlesRepository;
 use App\Provider\DoctrineProvider;
 use App\Provider\YamlProvider;

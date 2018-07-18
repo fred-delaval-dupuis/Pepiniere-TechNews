@@ -8,7 +8,6 @@
 
 namespace App\Category;
 
-
 use App\Entity\Category;
 
 class CategoryFactory

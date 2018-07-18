@@ -74,7 +74,6 @@ class ArticleRepository extends ServiceEntityRepository
 
     public function findPaginatedArticles(Category $category, int $page, int $nbPerPage)
     {
-
         $qb = $this
             ->createQueryBuilder('a')
             ->where('a.category = :category')

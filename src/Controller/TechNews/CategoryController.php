@@ -8,7 +8,6 @@
 
 namespace App\Controller\TechNews;
 
-
 use App\Category\CategoryRequest;
 use App\Category\CategoryRequestHandler;
 use App\Form\CategoryType;

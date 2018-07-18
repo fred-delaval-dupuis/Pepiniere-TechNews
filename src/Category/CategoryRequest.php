@@ -10,7 +10,6 @@ namespace App\Category;
 
 use Symfony\Component\Validator\Constraints as Assert;
 
-
 class CategoryRequest
 {
     /**
@@ -95,5 +94,4 @@ class CategoryRequest
         $this->articles = $articles;
         return $this;
     }
-
 }

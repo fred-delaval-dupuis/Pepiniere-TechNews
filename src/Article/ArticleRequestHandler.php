@@ -8,7 +8,6 @@
 
 namespace App\Article;
 
-
 use App\Entity\Article;
 use App\Service\Article\Uploader;
 use Doctrine\ORM\EntityManagerInterface;
@@ -19,7 +18,10 @@ use Symfony\Component\Workflow\Registry;
 
 class ArticleRequestHandler
 {
-    private $em, $articleFactory, $uploader, $workflows;
+    private $em;
+    private $articleFactory;
+    private $uploader;
+    private $workflows;
 
     /**
      * ArticleRequestHandler constructor.
@@ -28,8 +30,12 @@ class ArticleRequestHandler
      * @param Uploader $uploader
      * @param Registry $workflows
      */
-    public function __construct(EntityManagerInterface $em, ArticleFactory $articleFactory, Uploader $uploader, Registry $workflows)
-    {
+    public function __construct(
+        EntityManagerInterface $em,
+        ArticleFactory $articleFactory,
+        Uploader $uploader,
+        Registry $workflows
+    ) {
         $this->em = $em;
         $this->articleFactory = $articleFactory;
         $this->uploader = $uploader;

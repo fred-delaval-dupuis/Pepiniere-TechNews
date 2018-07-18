@@ -8,7 +8,6 @@
 
 namespace App\Service\Article;
 
-
 use App\Controller\HelperTrait;
 use App\Entity\Article;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
